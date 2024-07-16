@@ -2,11 +2,14 @@ import json
 import numpy as np
 
 # Load the JSON data from the file
- 
+file_path = 'reft_main_centerYdata.json'
+with open(file_path, 'r', encoding='utf-8') as file:
+    rssi_data = json.load(file)
 class kalman_filter:
     def __init__(self):
         self.filtered_data = {}
-
+        
+        
     # Function to apply a simple Kalman Filter on RSSI values
     def apply_kalman_filter(rssi_values):
         if not rssi_values:
@@ -42,20 +45,19 @@ class kalman_filter:
 
     # Apply Kalman filter to RSSI data of each MAC address
     def apply_kalman_filter_to_data(self, data):
-        filtered_data = {}
-        for gateway_mac, beacon_mac in data.items():
-            for beacon_mac, readings in beacon_mac.items():
-                rssi_values = [reading['RSSI'] for reading in readings]
-                filtered_rssi = kalman_filter.apply_kalman_filter(rssi_values)
-                filtered_data[beacon_mac] = filtered_rssi
 
-        return filtered_data
+        for mac, readings in data.items():
+            rssi_values = [reading['rssi'] for reading in readings]
+            filtered_rssi = kalman_filter.apply_kalman_filter(rssi_values)
+            self.filtered_data[mac] = filtered_rssi
+
+        return self.filtered_data
     
     # Calculate the average and standard deviation of the filtered RSSI values for each MAC address
     
-    def stats_rssi_per_mac(self, data):
+    def stats_rssi_per_mac(self):
         stats_rssi_per_mac = {}
-        for mac, rssi in data.items():
+        for mac, rssi in self.filtered_data.items():
             average = np.mean(rssi)
             std_dev = np.std(rssi)
             max_rssi = average + std_dev
@@ -66,19 +68,13 @@ class kalman_filter:
                 "max_rssi": max_rssi,
                 "min_rssi": min_rssi
             }
-        
+
         return stats_rssi_per_mac
 
 
 ################# test main code #################
-
-# file_path = 'measurement_data\\240716_154552_rssi(near_gateway) copy.json'        ### write your test measuring file path
-# with open(file_path, 'r') as json_file:
-#     json_data = json.load(json_file)
-   
-
 # if __name__ == "__main__":
 #     filter_instance = kalman_filter()
-#     filtered_data = filter_instance.apply_kalman_filter_to_data(json_data)
-#     stats = filter_instance.stats_rssi_per_mac(filtered_data)
+#     filtered_data = filter_instance.apply_kalman_filter_to_data(rssi_data)
+#     stats = filter_instance.stats_rssi_per_mac()
 #     print(stats)
