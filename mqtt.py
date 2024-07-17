@@ -76,7 +76,7 @@ class mqtt_sub:
                             "BattVoltage": item.get("BattVoltage", "")
                         })
         
-        # 초가 00일 때 JSON 파일 저장
+        # second == 00 JSON file saved
         if current_second == 0 and (self.last_save_second is None or self.last_save_second != 0):
             timestamp_str = current_time.strftime("%y%m%d_%H%M%S")
             file_name = f"filtered_data_{timestamp_str}_main.json"
@@ -119,7 +119,7 @@ class mqtt_sub:
                             "BattVoltage": item.get("BattVoltage", "")
                         })
         
-        # 초가 00일 때 JSON 파일 저장
+        # second == 00 JSON file saved
         if current_second == 0 and (self.last_save_second is None or self.last_save_second != 0):
             timestamp_str = current_time.strftime("%y%m%d_%H%M%S")
             file_name = f"filtered_data_{timestamp_str}_meetingroom.json"
@@ -128,12 +128,14 @@ class mqtt_sub:
             with open(f'{self.file_path}\{file_name}', 'w') as f:
                 json.dump(self.mac_data, f, indent=4)
 
-            print(f'Filtered data saved to {self.file_path}')
+            print(f'Filtered data saved to s{self.file_path}')
             self.last_save_second = 0
             self.mac_data = {}
         else:
             self.last_save_second = current_second
         
+################## test main code #################
+
 # # set MQTT broker
 # broker_address = "192.168.22.233" 
 # broker_port = 1883
@@ -141,7 +143,6 @@ class mqtt_sub:
 # # set client 
 # client = mqtt.Client()        
 
-# ################# test main code #################
 # if __name__ == "__main__":
 #     broker = mqtt_broker()
 #     broker.broker_start()
