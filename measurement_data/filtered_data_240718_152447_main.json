@@ -1,0 +1,22 @@
+{
+    "40D63CD6FD92": {
+        "F4741C781187": {
+            "average": -66.0,
+            "std_dev": 0.0,
+            "max_rssi": -66,
+            "min_rssi": -66,
+            "early_timestamp": "2024-07-18T06:24:46.427000+00:00",
+            "late_timestamp": "2024-07-18T06:24:46.427000+00:00",
+            "batt_voltage": 2977
+        },
+        "DE42759B6E12": {
+            "average": -54.0,
+            "std_dev": 0.0,
+            "max_rssi": -54,
+            "min_rssi": -54,
+            "early_timestamp": "2024-07-18T06:24:46.427000+00:00",
+            "late_timestamp": "2024-07-18T06:24:46.750000+00:00",
+            "batt_voltage": 2977
+        }
+    }
+}

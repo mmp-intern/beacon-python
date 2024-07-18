@@ -60,11 +60,12 @@ def run_meetingroom_sub(broker_address, broker_port):
     finally:
         print("sub thread is terminated.")
         
-# waiting for broker is already
+#waiting broker is already
 def start_main_sub_delay():
     time.sleep(5)
     run_main_sub(broker_address, broker_port)
-    
+            
+#waiting broker is already
 def start_meetingroom_sub_delay():
     time.sleep(5)
     run_meetingroom_sub(broker_address, broker_port)
@@ -74,17 +75,15 @@ if __name__ == "__main__":
     mqtt_broker_thread = threading.Thread(target=run_broker)
     mqtt_main_sub_thread = threading.Thread(target=start_main_sub_delay)
     mqtt_meetingroom_sub_thread = threading.Thread(target=start_meetingroom_sub_delay)
- 
+    
     mqtt_broker_thread.start()
     mqtt_main_sub_thread.start()
     mqtt_meetingroom_sub_thread.start()
-
     
     # waiting for break
     try:
         mqtt_broker_thread.join()
-        # mqtt_main_sub_thread.join()
-        # mqtt_meetingroom_sub_thread.join()
-        
+        mqtt_main_sub_thread.join()
+        mqtt_meetingroom_sub_thread.join()
     except KeyboardInterrupt:
         print("\nKeyboardInterrupt! Exiting main thread...")

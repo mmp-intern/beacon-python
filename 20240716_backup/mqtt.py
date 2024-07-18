@@ -7,7 +7,7 @@ import json
 
 from dataFilter import kalman_filter
 
-filt_path = r'D:\\project_mmp\\measurement_data'
+filt_path = 'D:\project_mmp\measurement_data'
 
 class mqtt_broker:
     def __init__(self):
@@ -84,13 +84,13 @@ class mqtt_sub:
             self.mac_data = kf.apply_kalman_filter_to_data(self.mac_data)
             with open(f'{self.file_path}\{file_name}', 'w') as f:
                 json.dump(self.mac_data, f, indent=4)
-                
+
             print(f'Filtered data saved to {self.file_path}')
             self.last_save_second = 0
             self.mac_data = {}
         else:
             self.last_save_second = current_second
-        
+              
     def on_message_to_meetingroom(self, client, userdata, msg):
 
         data = json.loads(msg.payload.decode('utf-8'))
@@ -133,12 +133,11 @@ class mqtt_sub:
             self.mac_data = {}
         else:
             self.last_save_second = current_second
-            
-
+        
 ################## test main code #################
 
 # # set MQTT broker
-# broker_address = "" 
+# broker_address = "192.168.22.233" 
 # broker_port = 1883
 
 # # set client 

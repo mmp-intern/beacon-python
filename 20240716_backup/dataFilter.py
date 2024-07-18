@@ -81,24 +81,14 @@ class kalman_filter:
 
             for beacon_mac, rssi_data in beacon_data.items():
                 # Extract timestamps and battvoltages from the filtered data
-                timestamps = rssi_data["Timestamps"]
-                batt_voltages = rssi_data["BattVoltages"]
+                timestamps = rssi_data['Timestamps']
+                batt_voltages = rssi_data['BattVoltages']
 
                 # Calculate average and standard deviation of RSSI
                 rssi_values = rssi_data['FilteredRSSI']
                 average = np.mean(rssi_values)
                 std_dev = np.std(rssi_values)
-                
-                     
-                max_rssi = None
-                min_rssi = None
-                
-                for rssi in rssi_values:
-                    if average - std_dev <= rssi <= average + std_dev:
-                        if max_rssi is None or rssi > max_rssi:
-                            max_rssi = rssi
-                        if min_rssi is None or rssi < min_rssi:
-                            min_rssi = rssi
+
                 # Determine min and max timestamp
                 if min_timestamp is None or min(timestamps) < min_timestamp:
                     min_timestamp = min(timestamps)
@@ -113,8 +103,8 @@ class kalman_filter:
                 stats_rssi_per_mac[gateway_mac][beacon_mac] = {
                     "average": average,
                     "std_dev": std_dev,
-                    "max_rssi": max_rssi,
-                    "min_rssi": min_rssi,
+                    "max_rssi": max(rssi_values),
+                    "min_rssi": min(rssi_values),
                     "early_timestamp": min_timestamp.replace(tzinfo=timezone.utc).isoformat(),
                     "late_timestamp": max_timestamp.replace(tzinfo=timezone.utc).isoformat(),
                     "batt_voltage": min_batt_voltage
@@ -123,15 +113,14 @@ class kalman_filter:
         return stats_rssi_per_mac
 
 
-################ test main code #################
+################# test main code #################
 
-# file_path = 'main_criterion_coordinate(-21,123)(21,123).json'        ### write your test measuring file path
-
+# file_path = 'measurement_data\\240717_091757_rssi(far_gateway).json'        ### write your test measuring file path
+# with open(file_path, 'r') as json_file:
+#     json_data = json.load(json_file)
    
 
 # if __name__ == "__main__":
-#     with open(file_path, 'r') as json_file:
-#         json_data = json.load(json_file)
 #     filter_instance = kalman_filter()
 #     filtered_data = filter_instance.apply_kalman_filter_to_data(json_data)
-#     print(filtered_data)
+#     print(filter_instance.stats_rssi_per_mac(filtered_data))
