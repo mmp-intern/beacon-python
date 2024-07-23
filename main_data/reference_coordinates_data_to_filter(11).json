@@ -1,0 +1,87 @@
+{
+    "red11": {
+                "number1": {
+                            "average": -74.04
+                },
+                "number2": {
+                            "average": -78.36
+                },
+                "number3": {
+                            "average": -68.55
+                },
+                "number4": {
+                            "average": -66.47
+                },
+                "number5": {
+                            "average": -63.28
+                }
+    },
+    "orange11": {
+                "number1": {
+                            "average": -71.4
+                },
+                "number2": {
+                            "average": -82.14
+                },
+                "number3": {
+                            "average": -63.75
+                },
+                "number4": {
+                            "average": -78.0
+                },
+                "number5": {
+                            "average": -71.07
+                }
+    },
+    "yellow11": {
+                "number1": {
+                            "average": -74.0
+                },
+                "number2": {
+                            "average": -74.47
+                },
+                "number3": {
+                            "average": -65.61
+                },
+                "number4": {
+                            "average": -71.38
+                },
+                "number5": {
+                            "average": -62.83
+                }
+    },
+    "green11": {
+                "number1": {
+                            "average": -78.29
+                },
+                "number2": {
+                            "average": -69.52
+                },
+                "number3": {
+                            "average": -71.05
+                },
+                "number4": {
+                            "average": -73.52
+                },
+                "number5": {
+                            "average": -77.72
+                }
+    },
+    "black11": {
+                "number1": {
+                            "average": -70.43
+                },
+                "number2": {
+                            "average": -77.59
+                },
+                "number3": {
+                            "average": -66.86
+                },
+                "number4": {
+                            "average": -67.68
+                },
+                "number5": {
+                            "average": -67.26
+                }
+    }
+}

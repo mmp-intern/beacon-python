@@ -1,0 +1,87 @@
+{
+      "red6": {
+            "number1": {
+                  "average": -80.88
+            },
+            "number2": {
+                  "average": -84.14
+            },
+            "number3": {
+                  "average": -61.34
+            },
+            "number4": {
+                  "average": -81.63
+            },
+            "number5": {
+                  "average": -82.33
+            }
+      },
+      "orange6": {
+            "number1": {
+                  "average": -82.78
+            },
+            "number2": {
+                  "average": -80.62
+            },
+            "number3": {
+                  "average": -57.29
+            },
+            "number4": {
+                  "average": -76.84
+            },
+            "number5": {
+                  "average": -76.31
+            }
+      },
+      "yellow6": {
+            "number1": {
+                  "average": -71.71
+            },
+            "number2": {
+                  "average": -78.28
+            },
+            "number3": {
+                  "average": -64.2
+            },
+            "number4": {
+                  "average": -72.29
+            },
+            "number5": {
+                  "average": -71.27
+            }
+      },
+      "green6": {
+            "number1": {
+                  "average": -75.58
+            },
+            "number2": {
+                  "average": -71.62
+            },
+            "number3": {
+                  "average": -55.38
+            },
+            "number4": {
+                  "average": -76.11
+            },
+            "number5": {
+                  "average": -72.17
+            }
+      },
+      "black6": {
+            "number1": {
+                  "average": -84.87
+            },
+            "number2": {
+                  "average": -81.57
+            },
+            "number3": {
+                  "average": -62.8
+            },
+            "number4": {
+                  "average": -77.83
+            },
+            "number5": {
+                  "average": -77.48
+            }
+      }
+}
