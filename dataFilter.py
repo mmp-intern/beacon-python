@@ -48,7 +48,6 @@ class kalman_filter:
             for beacon_mac, readings in beacon_macs.items():
                 rssi_values = [reading['RSSI'] for reading in readings]
                 timestamp_values = [datetime.fromisoformat(reading['TimeStamp'][:-1]) for reading in readings]
-                batt_voltage_values = [reading['BattVoltage'] for reading in readings]
                 
                 # 예시로 kalman_filter.kalman_filter 함수를 사용하여 rssi 값에 칼만 필터 적용
                 filtered_rssi = kalman_filter.kalman_filter(rssi_values)
@@ -58,8 +57,7 @@ class kalman_filter:
                     
                 self.filtered_data[gateway_mac][beacon_mac] = {
                     'FilteredRSSI': filtered_rssi,
-                    'Timestamps': timestamp_values,
-                    'BattVoltages': batt_voltage_values
+                    'Timestamps': timestamp_values
                 }
 
         result_data = self.stats_rssi_per_mac(self.filtered_data)
@@ -77,12 +75,10 @@ class kalman_filter:
             # Initialize variables to hold min/max timestamps and battvoltage
             min_timestamp = None
             max_timestamp = None
-            min_batt_voltage = None
 
             for beacon_mac, rssi_data in beacon_data.items():
                 # Extract timestamps and battvoltages from the filtered data
                 timestamps = rssi_data["Timestamps"]
-                batt_voltages = rssi_data["BattVoltages"]
 
                 # Calculate average and standard deviation of RSSI
                 rssi_values = rssi_data['FilteredRSSI']
@@ -105,10 +101,6 @@ class kalman_filter:
                 if max_timestamp is None or max(timestamps) > max_timestamp:
                     max_timestamp = max(timestamps)
 
-                # Determine min battvoltage
-                if min_batt_voltage is None or min(batt_voltages) < min_batt_voltage:
-                    min_batt_voltage = min(batt_voltages)
-
                 # Store statistics for current beacon_mac
                 stats_rssi_per_mac[gateway_mac][beacon_mac] = {
                     "average": average,
@@ -116,8 +108,7 @@ class kalman_filter:
                     "max_rssi": max_rssi,
                     "min_rssi": min_rssi,
                     "early_timestamp": min_timestamp.replace(tzinfo=timezone.utc).isoformat(),
-                    "late_timestamp": max_timestamp.replace(tzinfo=timezone.utc).isoformat(),
-                    "batt_voltage": min_batt_voltage
+                    "late_timestamp": max_timestamp.replace(tzinfo=timezone.utc).isoformat()
                 }
 
         return stats_rssi_per_mac
@@ -126,8 +117,6 @@ class kalman_filter:
 ################ test main code #################
 
 # file_path = 'main_criterion_coordinate(-21,123)(21,123).json'        ### write your test measuring file path
-
-   
 
 # if __name__ == "__main__":
 #     with open(file_path, 'r') as json_file:

@@ -4,10 +4,9 @@ import psutil
 import datetime
 import time
 import json
+import os
 
 from dataFilter import kalman_filter
-
-filt_path = r'D:\\project_mmp\\measurement_data'
 
 class mqtt_broker:
     def __init__(self):
@@ -36,10 +35,13 @@ class mqtt_broker:
 
 class mqtt_sub:
     def __init__(self):
-        self.mac_data = {}
-        self.last_save_minute = None
+        self.mac_data_number1 = {}
+        self.mac_data_number2 = {}
+        self.mac_data_number3 = {}
+        self.mac_data_number4 = {}
+        self.mac_data_number5 = {}
         self.last_save_second = None
-        self.file_path = filt_path
+        self.file_path = r'D:\\project_mmp\\measurement_data'
 
     def number1_sub_connect(self, client, userdata, flags, rc):
         print("Connected with result code " + str(rc))
@@ -65,218 +67,312 @@ class mqtt_sub:
 
         data = json.loads(msg.payload.decode('utf-8'))
         current_time = datetime.datetime.now()
-        current_second = current_time.second
         
         for item in data:
             if isinstance(item, dict):
                 if item.get("Format") == "Gateway" and "GatewayMAC" in item:
                     gateway_mac = item["GatewayMAC"]
-                    if gateway_mac not in self.mac_data:
-                        self.mac_data[gateway_mac] = {}
-                
+                    if gateway_mac not in self.mac_data_number1:
+                        self.mac_data_number1[gateway_mac] = {}
+
                 elif item.get("Format") == "BeaconX Pro-Device info" and "BLEMAC" in item:
                     beacon_mac = item["BLEMAC"]
-                    
+
                     if "TimeStamp" in item and "RSSI" in item:
-                        if gateway_mac not in self.mac_data:
-                            self.mac_data[gateway_mac] = {}
-                        if beacon_mac not in self.mac_data[gateway_mac]:
-                            self.mac_data[gateway_mac][beacon_mac] = []
-                        
-                        self.mac_data[gateway_mac][beacon_mac].append({
-                            "TimeStamp": item["TimeStamp"],
-                            "RSSI": item["RSSI"],
-                            "BattVoltage": item.get("BattVoltage", "")
-                        })
+                        # Ensure gateway_mac is not None before proceeding
+                        if gateway_mac is None:
+                            print(f"Error: GatewayMAC not set for beacon data {item}")
+                            continue
+
+                        if gateway_mac not in self.mac_data_number1:
+                            self.mac_data_number1[gateway_mac] = {}
+                        if beacon_mac not in self.mac_data_number1[gateway_mac]:
+                            self.mac_data_number1[gateway_mac][beacon_mac] = []
+
+                        try:
+                            self.mac_data_number1[gateway_mac][beacon_mac].append({
+                                "TimeStamp": item["TimeStamp"],
+                                "RSSI": item["RSSI"]
+                            })
+                        except AttributeError as e:
+                            print(f"AttributeError occurred: {e}")
+                            # Check and correct data structure if necessary
+                            if isinstance(self.mac_data_number1[gateway_mac][beacon_mac], dict):
+                                print(f"Resetting entry for {gateway_mac}-{beacon_mac} to an empty list.")
+                                self.mac_data_number1[gateway_mac][beacon_mac] = []
+                                # Retry appending the data
+                                self.mac_data_number1[gateway_mac][beacon_mac].append({
+                                    "TimeStamp": item["TimeStamp"],
+                                    "RSSI": item["RSSI"]
+                                })
+                            else:
+                                print(f"Unexpected error with data at {gateway_mac}-{beacon_mac}. Skipping entry.")
         
-        # minute == 00 JSON file saved
-        if current_time.minute == 27 and (self.last_save_minute is None or self.last_save_minute != 0) and current_second == 0 and (self.last_save_second is None or self.last_save_second != 0):
+        # second == 00 JSON file saved
+        if current_time.second == 00 and (self.last_save_second is None or self.last_save_second != 0):
             timestamp_str = current_time.strftime("%y%m%d_%H%M%S")
-            file_name = f"filtered_data_{timestamp_str}_(12)_number1.json"
+            file_name = f"{timestamp_str}number.json"
             kf = kalman_filter()
-            self.mac_data = kf.apply_kalman_filter_to_data(self.mac_data)
-            with open(f'{self.file_path}/{file_name}', 'w') as f:
-                json.dump(self.mac_data, f, indent=4)
-                
-            print(f'Filtered data saved to {self.file_path}')
-            self.last_save_minute = 0
-            self.mac_data = {}
+            self.mac_data_number1 = kf.apply_kalman_filter_to_data(self.mac_data_number1)
+            
+            self.save_data_to_json(self.mac_data_number1, file_name)
+            
+            self.last_save_second = 0
         else:
-            self.last_save_minute = current_time.minute
+            self.last_save_second = current_time.second
         
     def on_message_to_number2(self, client, userdata, msg):
 
         data = json.loads(msg.payload.decode('utf-8'))
         current_time = datetime.datetime.now()
-        current_second = current_time.second
         
         for item in data:
             if isinstance(item, dict):
                 if item.get("Format") == "Gateway" and "GatewayMAC" in item:
                     gateway_mac = item["GatewayMAC"]
-                    if gateway_mac not in self.mac_data:
-                        self.mac_data[gateway_mac] = {}
-                
+                    if gateway_mac not in self.mac_data_number2:
+                        self.mac_data_number2[gateway_mac] = {}
+
                 elif item.get("Format") == "BeaconX Pro-Device info" and "BLEMAC" in item:
                     beacon_mac = item["BLEMAC"]
-                    
+
                     if "TimeStamp" in item and "RSSI" in item:
-                        if gateway_mac not in self.mac_data:
-                            self.mac_data[gateway_mac] = {}
-                        if beacon_mac not in self.mac_data[gateway_mac]:
-                            self.mac_data[gateway_mac][beacon_mac] = []
-                        
-                        self.mac_data[gateway_mac][beacon_mac].append({
-                            "TimeStamp": item["TimeStamp"],
-                            "RSSI": item["RSSI"],
-                            "BattVoltage": item.get("BattVoltage", "")
-                        })
+                        # Ensure gateway_mac is not None before proceeding
+                        if gateway_mac is None:
+                            print(f"Error: GatewayMAC not set for beacon data {item}")
+                            continue
+
+                        if gateway_mac not in self.mac_data_number1:
+                            self.mac_data_number2[gateway_mac] = {}
+                        if beacon_mac not in self.mac_data_number2[gateway_mac]:
+                            self.mac_data_number2[gateway_mac][beacon_mac] = []
+
+                        try:
+                            self.mac_data_number2[gateway_mac][beacon_mac].append({
+                                "TimeStamp": item["TimeStamp"],
+                                "RSSI": item["RSSI"]
+                            })
+                        except AttributeError as e:
+                            print(f"AttributeError occurred: {e}")
+                            # Check and correct data structure if necessary
+                            if isinstance(self.mac_data_number2[gateway_mac][beacon_mac], dict):
+                                print(f"Resetting entry for {gateway_mac}-{beacon_mac} to an empty list.")
+                                self.mac_data_number2[gateway_mac][beacon_mac] = []
+                                # Retry appending the data
+                                self.mac_data_number2[gateway_mac][beacon_mac].append({
+                                    "TimeStamp": item["TimeStamp"],
+                                    "RSSI": item["RSSI"]
+                                })
+                            else:
+                                print(f"Unexpected error with data at {gateway_mac}-{beacon_mac}. Skipping entry.")
         
-        # minute == 00 JSON file saved
-        if current_time.minute == 27 and (self.last_save_minute is None or self.last_save_minute != 0) and current_second == 0 and (self.last_save_second is None or self.last_save_second != 0):
+        # second == 00 JSON file saved
+        if current_time.second == 00 and (self.last_save_second is None or self.last_save_second != 0):
             timestamp_str = current_time.strftime("%y%m%d_%H%M%S")
-            file_name = f"filtered_data_{timestamp_str}_(12)_number2.json"
+            file_name = f"{timestamp_str}number.json"
             kf = kalman_filter()
-            self.mac_data = kf.apply_kalman_filter_to_data(self.mac_data)
-            with open(f'{self.file_path}/{file_name}', 'w') as f:
-                json.dump(self.mac_data, f, indent=4)
-                
-            print(f'Filtered data saved to {self.file_path}')
-            self.last_save_minute = 0
-            self.mac_data = {}
+            self.mac_data_number2 = kf.apply_kalman_filter_to_data(self.mac_data_number2)
+            
+            self.save_data_to_json(self.mac_data_number2, file_name)
+            
+            self.last_save_second = 0
         else:
-            self.last_save_minute = current_time.minute
+            self.last_save_second = current_time.second
             
 
     def on_message_to_number3(self, client, userdata, msg):
 
         data = json.loads(msg.payload.decode('utf-8'))
         current_time = datetime.datetime.now()
-        current_second = current_time.second
         
         for item in data:
             if isinstance(item, dict):
                 if item.get("Format") == "Gateway" and "GatewayMAC" in item:
                     gateway_mac = item["GatewayMAC"]
-                    if gateway_mac not in self.mac_data:
-                        self.mac_data[gateway_mac] = {}
-                
+                    if gateway_mac not in self.mac_data_number3:
+                        self.mac_data_number3[gateway_mac] = {}
+
                 elif item.get("Format") == "BeaconX Pro-Device info" and "BLEMAC" in item:
                     beacon_mac = item["BLEMAC"]
-                    
+
                     if "TimeStamp" in item and "RSSI" in item:
-                        if gateway_mac not in self.mac_data:
-                            self.mac_data[gateway_mac] = {}
-                        if beacon_mac not in self.mac_data[gateway_mac]:
-                            self.mac_data[gateway_mac][beacon_mac] = []
-                        
-                        self.mac_data[gateway_mac][beacon_mac].append({
-                            "TimeStamp": item["TimeStamp"],
-                            "RSSI": item["RSSI"],
-                            "BattVoltage": item.get("BattVoltage", "")
-                        })
+                        # Ensure gateway_mac is not None before proceeding
+                        if gateway_mac is None:
+                            print(f"Error: GatewayMAC not set for beacon data {item}")
+                            continue
+
+                        if gateway_mac not in self.mac_data_number3:
+                            self.mac_data_number3[gateway_mac] = {}
+                        if beacon_mac not in self.mac_data_number3[gateway_mac]:
+                            self.mac_data_number3[gateway_mac][beacon_mac] = []
+
+                        try:
+                            self.mac_data_number3[gateway_mac][beacon_mac].append({
+                                "TimeStamp": item["TimeStamp"],
+                                "RSSI": item["RSSI"]
+                            })
+                        except AttributeError as e:
+                            print(f"AttributeError occurred: {e}")
+                            # Check and correct data structure if necessary
+                            if isinstance(self.mac_data_number3[gateway_mac][beacon_mac], dict):
+                                print(f"Resetting entry for {gateway_mac}-{beacon_mac} to an empty list.")
+                                self.mac_data_number3[gateway_mac][beacon_mac] = []
+                                # Retry appending the data
+                                self.mac_data_number3[gateway_mac][beacon_mac].append({
+                                    "TimeStamp": item["TimeStamp"],
+                                    "RSSI": item["RSSI"]
+                                })
+                            else:
+                                print(f"Unexpected error with data at {gateway_mac}-{beacon_mac}. Skipping entry.")
         
-        # minute == 00 JSON file saved
-        if current_time.minute == 27 and (self.last_save_minute is None or self.last_save_minute != 0) and current_second == 0 and (self.last_save_second is None or self.last_save_second != 0):
+        # second == 00 JSON file saved
+        if current_time.second == 00 and (self.last_save_second is None or self.last_save_second != 0):
             timestamp_str = current_time.strftime("%y%m%d_%H%M%S")
-            file_name = f"filtered_data_{timestamp_str}_(12)_number3.json"
+            file_name = f"{timestamp_str}number.json"
             kf = kalman_filter()
-            self.mac_data = kf.apply_kalman_filter_to_data(self.mac_data)
-            with open(f'{self.file_path}/{file_name}', 'w') as f:
-                json.dump(self.mac_data, f, indent=4)
-                
-            print(f'Filtered data saved to {self.file_path}')
-            self.last_save_minute = 0
-            self.mac_data = {}
+            self.mac_data_number3 = kf.apply_kalman_filter_to_data(self.mac_data_number3)
+            
+            self.save_data_to_json(self.mac_data_number3, file_name)
+            
+            self.last_save_second = 0
         else:
-            self.last_save_minute = current_time.minute
+            self.last_save_second = current_time.second
             
     def on_message_to_number4(self, client, userdata, msg):
 
         data = json.loads(msg.payload.decode('utf-8'))
         current_time = datetime.datetime.now()
-        current_second = current_time.second
         
         for item in data:
             if isinstance(item, dict):
                 if item.get("Format") == "Gateway" and "GatewayMAC" in item:
                     gateway_mac = item["GatewayMAC"]
-                    if gateway_mac not in self.mac_data:
-                        self.mac_data[gateway_mac] = {}
-                
+                    if gateway_mac not in self.mac_data_number4:
+                        self.mac_data_number4[gateway_mac] = {}
+
                 elif item.get("Format") == "BeaconX Pro-Device info" and "BLEMAC" in item:
                     beacon_mac = item["BLEMAC"]
-                    
+
                     if "TimeStamp" in item and "RSSI" in item:
-                        if gateway_mac not in self.mac_data:
-                            self.mac_data[gateway_mac] = {}
-                        if beacon_mac not in self.mac_data[gateway_mac]:
-                            self.mac_data[gateway_mac][beacon_mac] = []
-                        
-                        self.mac_data[gateway_mac][beacon_mac].append({
-                            "TimeStamp": item["TimeStamp"],
-                            "RSSI": item["RSSI"],
-                            "BattVoltage": item.get("BattVoltage", "")
-                        })
+                        # Ensure gateway_mac is not None before proceeding
+                        if gateway_mac is None:
+                            print(f"Error: GatewayMAC not set for beacon data {item}")
+                            continue
+
+                        if gateway_mac not in self.mac_data_number4:
+                            self.mac_data_number4[gateway_mac] = {}
+                        if beacon_mac not in self.mac_data_number4[gateway_mac]:
+                            self.mac_data_number4[gateway_mac][beacon_mac] = []
+
+                        try:
+                            self.mac_data_number4[gateway_mac][beacon_mac].append({
+                                "TimeStamp": item["TimeStamp"],
+                                "RSSI": item["RSSI"]
+                            })
+                        except AttributeError as e:
+                            print(f"AttributeError occurred: {e}")
+                            # Check and correct data structure if necessary
+                            if isinstance(self.mac_data_number4[gateway_mac][beacon_mac], dict):
+                                print(f"Resetting entry for {gateway_mac}-{beacon_mac} to an empty list.")
+                                self.mac_data_number4[gateway_mac][beacon_mac] = []
+                                # Retry appending the data
+                                self.mac_data_number4[gateway_mac][beacon_mac].append({
+                                    "TimeStamp": item["TimeStamp"],
+                                    "RSSI": item["RSSI"]
+                                })
+                            else:
+                                print(f"Unexpected error with data at {gateway_mac}-{beacon_mac}. Skipping entry.")
         
-        # minute == 00 JSON file saved
-        if current_time.minute == 27 and (self.last_save_minute is None or self.last_save_minute != 0) and current_second == 0 and (self.last_save_second is None or self.last_save_second != 0):
+        # second == 00 JSON file saved
+        if current_time.second == 00 and (self.last_save_second is None or self.last_save_second != 0):
             timestamp_str = current_time.strftime("%y%m%d_%H%M%S")
-            file_name = f"filtered_data_{timestamp_str}_(12)_number4.json"
+            file_name = f"{timestamp_str}number.json"
             kf = kalman_filter()
-            self.mac_data = kf.apply_kalman_filter_to_data(self.mac_data)
-            with open(f'{self.file_path}/{file_name}', 'w') as f:
-                json.dump(self.mac_data, f, indent=4)
-                
-            print(f'Filtered data saved to {self.file_path}')
-            self.last_save_minute = 0
-            self.mac_data = {}
+            self.mac_data_number4 = kf.apply_kalman_filter_to_data(self.mac_data_number4)
+            
+            self.save_data_to_json(self.mac_data_number4, file_name)
+            
+            self.last_save_second = 0
         else:
-            self.last_save_minute = current_time.minute
+            self.last_save_second = current_time.second
             
     def on_message_to_number5(self, client, userdata, msg):
 
         data = json.loads(msg.payload.decode('utf-8'))
         current_time = datetime.datetime.now()
-        current_second = current_time.second
         
         for item in data:
             if isinstance(item, dict):
                 if item.get("Format") == "Gateway" and "GatewayMAC" in item:
                     gateway_mac = item["GatewayMAC"]
-                    if gateway_mac not in self.mac_data:
-                        self.mac_data[gateway_mac] = {}
-                
+                    if gateway_mac not in self.mac_data_number5:
+                        self.mac_data_number5[gateway_mac] = {}
+
                 elif item.get("Format") == "BeaconX Pro-Device info" and "BLEMAC" in item:
                     beacon_mac = item["BLEMAC"]
-                    
+
                     if "TimeStamp" in item and "RSSI" in item:
-                        if gateway_mac not in self.mac_data:
-                            self.mac_data[gateway_mac] = {}
-                        if beacon_mac not in self.mac_data[gateway_mac]:
-                            self.mac_data[gateway_mac][beacon_mac] = []
-                        
-                        self.mac_data[gateway_mac][beacon_mac].append({
-                            "TimeStamp": item["TimeStamp"],
-                            "RSSI": item["RSSI"],
-                            "BattVoltage": item.get("BattVoltage", "")
-                        })
+                        # Ensure gateway_mac is not None before proceeding
+                        if gateway_mac is None:
+                            print(f"Error: GatewayMAC not set for beacon data {item}")
+                            continue
+
+                        if gateway_mac not in self.mac_data_number5:
+                            self.mac_data_number5[gateway_mac] = {}
+                        if beacon_mac not in self.mac_data_number5[gateway_mac]:
+                            self.mac_data_number5[gateway_mac][beacon_mac] = []
+
+                        try:
+                            self.mac_data_number5[gateway_mac][beacon_mac].append({
+                                "TimeStamp": item["TimeStamp"],
+                                "RSSI": item["RSSI"]
+                            })
+                        except AttributeError as e:
+                            print(f"AttributeError occurred: {e}")
+                            # Check and correct data structure if necessary
+                            if isinstance(self.mac_data_number5[gateway_mac][beacon_mac], dict):
+                                print(f"Resetting entry for {gateway_mac}-{beacon_mac} to an empty list.")
+                                self.mac_data_number5[gateway_mac][beacon_mac] = []
+                                # Retry appending the data
+                                self.mac_data_number5[gateway_mac][beacon_mac].append({
+                                    "TimeStamp": item["TimeStamp"],
+                                    "RSSI": item["RSSI"]
+                                })
+                            else:
+                                print(f"Unexpected error with data at {gateway_mac}-{beacon_mac}. Skipping entry.")
         
-       # minute == 00 JSON file saved
-        if current_time.minute == 27 and (self.last_save_minute is None or self.last_save_minute != 0) and current_second == 0 and (self.last_save_second is None or self.last_save_second != 0):
+       # second == 00 JSON file saved
+        if current_time.second == 00 and (self.last_save_second is None or self.last_save_second != 0):
             timestamp_str = current_time.strftime("%y%m%d_%H%M%S")
-            file_name = f"filtered_data_{timestamp_str}_(12)_number5.json"
+            file_name = f"{timestamp_str}number.json"
             kf = kalman_filter()
-            self.mac_data = kf.apply_kalman_filter_to_data(self.mac_data)
-            with open(f'{self.file_path}/{file_name}', 'w') as f:
-                json.dump(self.mac_data, f, indent=4)
-                
-            print(f'Filtered data saved to {self.file_path}')
-            self.last_save_minute = 0
-            self.mac_data = {}
-        else:
-            self.last_save_minute = current_time.minute
+            self.mac_data_number5 = kf.apply_kalman_filter_to_data(self.mac_data_number5)
             
+            self.save_data_to_json(self.mac_data_number5, file_name)
+            
+            self.last_save_second = 0
+        else:
+            self.last_save_second = current_time.second
+            
+    def save_data_to_json(self, data, file_name):
+        
+        file_path = f'{self.file_path}/{file_name}'
+        
+        if(self.mac_data_number1,self.mac_data_number2, 
+           self.mac_data_number3,self.mac_data_number4,
+           self.mac_data_number5 != {}):
+            if os.path.exists(file_path):
+                # If the file exists, append data to it
+                with open(file_path, 'a') as f:
+                    f.write("\n")  # Write a new line to separate entries
+                    json.dump(data, f, indent=4)                 
+                    data = {}
+            else:
+                # If the file does not exist, create it and write data
+                with open(file_path, 'w') as f:
+                    json.dump(data, f, indent=4)
+                    data = {}
+    
 ################## test main code #################
 
 # # set MQTT broker
