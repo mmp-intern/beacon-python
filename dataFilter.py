@@ -1,4 +1,3 @@
-import json
 import numpy as np
 from datetime import datetime, timezone
 
@@ -49,7 +48,6 @@ class kalman_filter:
                 rssi_values = [reading['RSSI'] for reading in readings]
                 timestamp_values = [datetime.fromisoformat(reading['TimeStamp'][:-1]) for reading in readings]
                 
-                # 예시로 kalman_filter.kalman_filter 함수를 사용하여 rssi 값에 칼만 필터 적용
                 filtered_rssi = kalman_filter.kalman_filter(rssi_values)
                 
                 if gateway_mac not in self.filtered_data:

@@ -1,112 +1,113 @@
 import json
 import math
 from collections import defaultdict
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Tuple, Optional
 
-# Path to your JSON file
-file_path = 'main_data\\reference_coordinates_data.json'
+class SensorDataAnalyzer:
+    def __init__(self):
+        # Initialize the class with a set of all device IDs
+        self.all_device_ids = {'40D63CD705BA', '40D63CD70316', '40D63CD702E8', '40D63CD6FD92', '40D63CD70406'}
+    
+    def euclidean_distance(self, data1: Dict[str, Dict[str, float]], data2: Dict[str, Dict[str, float]]) -> float:
+        dist = 0.0
+        
+        for device_id in self.all_device_ids:
+            avg1 = data1.get(device_id, {}).get("average", -85.0)
+            avg2 = data2.get(device_id, {}).get("average", -85.0)
+            
+            dist += (avg1 - avg2) ** 2
+        
+        return math.sqrt(dist)
 
-# Convert JSON file to dictionary
-with open(file_path, 'r') as file:
-    data_dict = json.load(file)
+    def find_most_similar_node(self, tree: Dict[str, Any], target_node: Dict[str, Any]) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+        closest_node = None
+        min_distance = float('inf')
+        closest_location = None
 
-# Initialize the tree structure using defaultdict
-tree = defaultdict(lambda: {"children": []})
+        for location, loc_data in tree.items():
+            for node in loc_data["children"]:
+                distance = self.euclidean_distance(node["data"], target_node["data"])
+                if distance < min_distance:
+                    min_distance = distance
+                    closest_node = node
+                    closest_location = location
 
-# Build the tree structure
-for key, value in data_dict.items():
-    location = value["location"]
-    node = {
-        "name": key,
-        "data": {
-            "number1": value["number1"],
-            "number2": value["number2"],
-            "number3": value["number3"],
-            "number4": value["number4"],
-            "number5": value["number5"],
-            "x": value["x"],
-            "y": value["y"]
-        }
-    }
-    # Add node to the corresponding location in the tree
-    tree[location]["children"].append(node)
+        return closest_node, closest_location
 
-# Convert defaultdict to a regular dict for nicer output
+    def transform_data(self, data: List[Dict[str, Any]]) -> Dict[str, Dict[str, float]]:
+        transformed = {}
+        
+        for device in data:
+            for device_id, sensors in device.items():
+                for sensor_id, stats in sensors.items():
+                    if sensor_id not in transformed:
+                        transformed[sensor_id] = {"data": {}}
+                    
+                    transformed[sensor_id]["data"][device_id] = {"average": stats.get("average", -85.0)}
+
+        # Ensure all device IDs are present for each sensor ID
+        for sensor_id, sensor_data in transformed.items():
+            for device_id in self.all_device_ids:
+                if device_id not in sensor_data["data"]:
+                    sensor_data["data"][device_id] = {"average": -85.0}
+        
+        return transformed
+    
 def dictify(d):
-    """Convert defaultdict to dict."""
     if isinstance(d, defaultdict):
         d = {k: dictify(v) for k, v in d.items()}
     return d
 
-# Final tree structure
-final_tree = dictify(tree)
 
-def euclidean_distance(data1: Dict[str, Any], data2: Dict[str, Any]) -> float:
-    """Calculate the Euclidean distance between two nodes based on their numerical attributes and coordinates."""
-    dist = 0.0
-    for number in ["number1", "number2", "number3", "number4", "number5"]:
-        dist += (data1[number]["average"] - data2[number]["average"]) ** 2
-    if "x" in data1 and "x" in data2 and "y" in data1 and "y" in data2:
-        dist += (data1["x"] - data2["x"]) ** 2
-        dist += (data1["y"] - data2["y"]) ** 2
-    return math.sqrt(dist)
-
-def find_most_similar_node(tree: Dict[str, Any], target_node: Dict[str, Any]) -> Optional[Dict[str, Any]]:
-    """Find the most similar node to the target_node based on Euclidean distance."""
-    closest_node = None
-    min_distance = float('inf')
-    closest_location = None
-    
-    for location, loc_data in tree.items():
-        for node in loc_data["children"]:
-            distance = euclidean_distance(node["data"], target_node["data"])
-            if distance < min_distance:
-                min_distance = distance
-                closest_node = node
-                closest_location = location
-    
-    return closest_node, closest_location
-
-def print_sorted_nodes_by_similarity(tree: Dict[str, Any], location: str, target_node: Dict[str, Any]):
-    
-    if location in tree:
-        nodes = tree[location]["children"]
-        nodes_with_distance = []
-        
-        for node in nodes:
-            distance = euclidean_distance(node["data"], target_node["data"])
-            nodes_with_distance.append((node, distance))
-        
-        nodes_with_distance.sort(key=lambda x: x[1])
-        
-        print(f"\nNodes with the same parent ('{location}') sorted by similarity to target node:")
-        
-        for node, distance in nodes_with_distance:
-            print(f"- {node['name']}: {node['data']}, Distance: {distance:.2f}")
-        
-    else:
-        print(f"No nodes found with the location '{location}'.")
-
-# Example usage
-
+# Example usage:
 if __name__ == "__main__":
-    # Define the target node to compare against
-    target_node = {
-        "name": "target_node_name",
-        "data": {
-            "number1": {"average": -79.81},
-            "number2": {"average": -78.60},
-            "number3": {"average": -57.97},
-            "number4": {"average": -73.89},
-            "number5": {"average": -69.75},
-            # Note: No 'x' and 'y' values in the target node
+
+    # Initialize the class with the device IDs
+    analyzer = SensorDataAnalyzer()
+    
+    # Load the reference coordinates data
+    with open('main_data/reference_coordinates_data.json', 'r') as file:
+        tree_data = json.load(file)
+    
+    # Initialize the tree structure using defaultdict
+    tree = defaultdict(lambda: {"children": []})
+    
+    # Build the tree structure
+    for key, value in tree_data.items():
+        location = value["location"]
+        node = {
+            "name": key,
+            "data": {
+                "40D63CD6FD92": value.get("40D63CD6FD92"),
+                "40D63CD705BA": value.get("40D63CD705BA"),
+                "40D63CD70406": value.get("40D63CD70406"),
+                "40D63CD702E8": value.get("40D63CD702E8"),
+                "40D63CD70316": value.get("40D63CD70316"),
+                "x": value.get("x"),
+                "y": value.get("y")
+            }
         }
-    }
+        tree[location]["children"].append(node)
     
-    # Find the most similar node
-    most_similar_node, most_similar_location = find_most_similar_node(final_tree, target_node)
+    final_tree = dictify(tree)
     
-    # Print the result
-    import pprint
-    print(f"Most similar node to '{target_node['name']}':")
-    pprint.pprint(most_similar_node)
+    # Load measurement data
+    with open('measurement_data/240729_115100number_fixed.json', 'r') as f:
+        measurement_data = json.load(f)
+    
+    # Transform the measurement data
+    transformed_data = analyzer.transform_data(measurement_data)
+    
+    # Find the most similar node for each sensor
+    for sensor_id, sensor_data in transformed_data.items():
+        target_sensor_data = sensor_data["data"]
+        
+        most_similar_node, most_similar_location = analyzer.find_most_similar_node(final_tree, sensor_data)
+        
+        if most_similar_node:
+            print(f"Most similar node for sensor '{sensor_id}':")
+            print(f"Location: {most_similar_location}")
+            print(f"Node: {most_similar_node['name']}")
+            print(f"Distance: {analyzer.euclidean_distance(most_similar_node['data'], sensor_data['data']):.2f}\n")
+        else:
+            print(f"No similar node found for sensor '{sensor_id}'.\n")

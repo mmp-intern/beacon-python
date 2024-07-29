@@ -1,6 +1,5 @@
 import paho.mqtt.client as mqtt
-import numpy as np
-import threading
+import multiprocessing
 import time
 
 from collections import defaultdict
@@ -127,29 +126,29 @@ def start_number5_sub_delay():
     run_number5_sub(broker_address, broker_port)
     
 if __name__ == "__main__":
-    # multithreading
-    mqtt_broker_thread = threading.Thread(target=run_broker)
-    mqtt_number1_sub_thread = threading.Thread(target=start_number1_sub_delay)
-    mqtt_number2_sub_thread = threading.Thread(target=start_number2_sub_delay)
-    mqtt_number3_sub_thread = threading.Thread(target=start_number3_sub_delay)
-    mqtt_number4_sub_thread = threading.Thread(target=start_number4_sub_delay)
-    mqtt_number5_sub_thread = threading.Thread(target=start_number5_sub_delay)
- 
-    mqtt_broker_thread.start()
-    mqtt_number1_sub_thread.start()
-    mqtt_number2_sub_thread.start()
-    mqtt_number3_sub_thread.start()
-    mqtt_number4_sub_thread.start()
-    mqtt_number5_sub_thread.start()
-    
-    # waiting for break
+    # Multiprocessing
+    mqtt_broker_process = multiprocessing.Process(target=run_broker)
+    mqtt_number1_sub_process = multiprocessing.Process(target=start_number1_sub_delay)
+    mqtt_number2_sub_process = multiprocessing.Process(target=start_number2_sub_delay)
+    mqtt_number3_sub_process = multiprocessing.Process(target=start_number3_sub_delay)
+    mqtt_number4_sub_process = multiprocessing.Process(target=start_number4_sub_delay)
+    mqtt_number5_sub_process = multiprocessing.Process(target=start_number5_sub_delay)
+
+    # Starting processes
+    mqtt_broker_process.start()
+    mqtt_number1_sub_process.start()
+    mqtt_number2_sub_process.start()
+    mqtt_number3_sub_process.start()
+    mqtt_number4_sub_process.start()
+    mqtt_number5_sub_process.start()
+
+    # Waiting for processes to finish
     try:
-        mqtt_broker_thread.join()
-        mqtt_number1_sub_thread.join()
-        mqtt_number2_sub_thread.join()
-        mqtt_number3_sub_thread.join()
-        mqtt_number4_sub_thread.join()
-        mqtt_number5_sub_thread.join()
-        
+        mqtt_broker_process.join()
+        mqtt_number1_sub_process.join()
+        mqtt_number2_sub_process.join()
+        mqtt_number3_sub_process.join()
+        mqtt_number4_sub_process.join()
+        mqtt_number5_sub_process.join()
     except KeyboardInterrupt:
-        print("\nKeyboardInterrupt! Exiting main thread...")
+        print("\nKeyboardInterrupt! Exiting main process...")

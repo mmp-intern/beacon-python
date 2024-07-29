@@ -37,4 +37,4 @@ def fix_json(file_path):
     print(f'Fixed JSON data has been saved to: {output_path}')
 
 # Example usage
-fix_json('measurement_data/240724_153300number.json')
+fix_json('measurement_data/240729_115100number.json')

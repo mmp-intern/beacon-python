@@ -111,7 +111,7 @@ def main():
     data = load_data_from_file(filename)
     
     # Example input averages
-    input_averages = [-76.77, -83.28, -70.83, -64.52, -69.06]
+    input_averages = [-72.32, -85.00, -73.74, -62.51, -56.21]
     
     # Predict coordinates
     predicted_x, predicted_y = predict_coordinates(data, input_averages)

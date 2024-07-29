@@ -373,6 +373,7 @@ class mqtt_sub:
                     json.dump(data, f, indent=4)
                     data = {}
     
+    
 ################## test main code #################
 
 # # set MQTT broker
