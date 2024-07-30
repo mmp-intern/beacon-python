@@ -4,6 +4,7 @@ import time
 
 from collections import defaultdict
 from mqtt import mqtt_broker, mqtt_sub 
+from fix_wrong_json import handling_json_file
 
 # set MQTT broker
 broker_address = "192.168.0.71" 
@@ -133,7 +134,9 @@ if __name__ == "__main__":
     mqtt_number3_sub_process = multiprocessing.Process(target=start_number3_sub_delay)
     mqtt_number4_sub_process = multiprocessing.Process(target=start_number4_sub_delay)
     mqtt_number5_sub_process = multiprocessing.Process(target=start_number5_sub_delay)
-
+    test = handling_json_file()
+    
+    
     # Starting processes
     mqtt_broker_process.start()
     mqtt_number1_sub_process.start()
@@ -141,7 +144,8 @@ if __name__ == "__main__":
     mqtt_number3_sub_process.start()
     mqtt_number4_sub_process.start()
     mqtt_number5_sub_process.start()
-
+    while(1):
+        test.combine_json_files()
     # Waiting for processes to finish
     try:
         mqtt_broker_process.join()

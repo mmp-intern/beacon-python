@@ -1,114 +1,105 @@
-import json
-import math
-from collections import defaultdict
-from typing import Dict, Any, List, Tuple, Optional
+# import os
+# import json
+# from datetime import datetime
+# class handling_json_file:
+#     def __init__(self):
+#         self.base_filename = datetime.now().strftime("%y%m%d_%H%M00")
+#         self.count = 5
+#         self.directory = 'D:/project_mmp/measurement_data'
 
-class SensorDataAnalyzer:
-    def __init__(self):
-        # Initialize the class with a set of all device IDs
-        self.all_device_ids = {'40D63CD705BA', '40D63CD70316', '40D63CD702E8', '40D63CD6FD92', '40D63CD70406'}
-    
-    
-    def euclidean_distance(self, data1: Dict[str, Dict[str, float]], data2: Dict[str, Dict[str, float]]) -> float:
-        dist = 0.0
-        
-        for device_id in self.all_device_ids:
-            avg1 = data1.get(device_id, {}).get("average", -85.0)
-            avg2 = data2.get(device_id, {}).get("average", -85.0)
+#     def combine_json_files(self):
+#         self.base_filename = datetime.now().strftime("%y%m%d_%H%M00")
+#         if datetime.now().second == 10:
+#             combine_file_path = os.path.join(self.directory, f"{self.base_filename}combined.json")
+#             combined_data = {}
+
+#             # Check if all files exist
+#             all_files_exist = True
+#             file_paths = [os.path.join(self.directory, f"{self.base_filename}number{i}.json") for i in range(1, self.count + 1)]
             
-            dist += (avg1 - avg2) ** 2
-        
-        return math.sqrt(dist)
+#             for file_path in file_paths:
+#                 if not os.path.exists(file_path):
+#                     all_files_exist = False
 
-    def find_most_similar_node(self, tree: Dict[str, Any], target_node: Dict[str, Any]) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
-        closest_node = None
-        min_distance = float('inf')
-        closest_location = None
+#             if not all_files_exist:
+#                 return
 
-        for location, loc_data in tree.items():
-            for node in loc_data["children"]:
-                distance = self.euclidean_distance(node["data"], target_node["data"])
-                if distance < min_distance:
-                    min_distance = distance
-                    closest_node = node
-                    closest_location = location
+#             # If the combined file already exists, read its content
+#             if os.path.exists(combine_file_path):
+#                 with open(combine_file_path, 'r') as f:
+#                     combined_data = json.load(f)
+#                 print(f"Existing combined data loaded from {combine_file_path}")
+            
+#             # Read and combine data from existing files
+#             for file_path in file_paths:
+#                 with open(file_path, 'r') as f:
+#                     data = json.load(f)
+#                     combined_data.update(data)  # Merge data into combined_data
 
-        return closest_node, closest_location
+#             # Write the combined data to the combined file
+#             try:
+#                 with open(combine_file_path, 'w') as new_file:
+#                     json.dump(combined_data, new_file, indent=4)
+#                 print(f"Combined data saved to {combine_file_path}")
 
-    def transform_data(self, data: List[Dict[str, Any]]) -> Dict[str, Dict[str, float]]:
-        transformed = {}
-        
-        for device in data:
-            for device_id, sensors in device.items():
-                for sensor_id, stats in sensors.items():
-                    if sensor_id not in transformed:
-                        transformed[sensor_id] = {"data": {}}
-                    
-                    transformed[sensor_id]["data"][device_id] = {"average": stats.get("average", -85.0)}
+#                 # After successfully saving the combined data, delete the original files
+#                 for file_path in file_paths:
+#                     if os.path.exists(file_path):
+#                         os.remove(file_path)
+#                         print(f"Deleted {file_path}")
 
-        # Ensure all device IDs are present for each sensor ID
-        for sensor_id, sensor_data in transformed.items():
-            for device_id in self.all_device_ids:
-                if device_id not in sensor_data["data"]:
-                    sensor_data["data"][device_id] = {"average": -85.0}
-        
-        return transformed
-    
-def dictify(d):
-    if isinstance(d, defaultdict):
-        d = {k: dictify(v) for k, v in d.items()}
-    return d
+#             except IOError as e:
+#                 print(f"An error occurred while saving the combined file: {e}")
 
+import os
+import json
+from datetime import datetime
+class handling_json_file:
+    def __init__(self):
+        self.base_filename = datetime.now().strftime("%y%m%d_%H%M00")
+        self.count = 5
+        self.directory = 'D:/project_mmp/measurement_data'
 
-# Example usage:
-if __name__ == "__main__":
+    def combine_json_files(self):
+        self.base_filename = datetime.now().strftime("%y%m%d_%H%M00")
+        if datetime.now().second == 10:
+            combine_file_path = os.path.join(self.directory, f"{self.base_filename}combined.json")
+            combined_data = {}
 
-    # Initialize the class with the device IDs
-    analyzer = SensorDataAnalyzer()
-    
-    # Load the reference coordinates data
-    with open('main_data/reference_coordinates_data.json', 'r') as file:
-        tree_data = json.load(file)
-    
-    # Initialize the tree structure using defaultdict
-    tree = defaultdict(lambda: {"children": []})
-    
-    # Build the tree structure
-    for key, value in tree_data.items():
-        location = value["location"]
-        node = {
-            "name": key,
-            "data": {
-                "40D63CD6FD92": value.get("40D63CD6FD92"),
-                "40D63CD705BA": value.get("40D63CD705BA"),
-                "40D63CD70406": value.get("40D63CD70406"),
-                "40D63CD702E8": value.get("40D63CD702E8"),
-                "40D63CD70316": value.get("40D63CD70316"),
-                "x": value.get("x"),
-                "y": value.get("y")
-            }
-        }
-        tree[location]["children"].append(node)
-    
-    final_tree = dictify(tree)
-    
-    # Load measurement data
-    with open('measurement_data/240729_115100number_fixed.json', 'r') as f:
-        measurement_data = json.load(f)
-    
-    # Transform the measurement data
-    transformed_data = analyzer.transform_data(measurement_data)
-    
-    # Find the most similar node for each sensor
-    for sensor_id, sensor_data in transformed_data.items():
-        target_sensor_data = sensor_data["data"]
-        
-        most_similar_node, most_similar_location = analyzer.find_most_similar_node(final_tree, sensor_data)
-        
-        if most_similar_node:
-            print(f"Most similar node for sensor '{sensor_id}':")
-            print(f"Location: {most_similar_location}")
-            print(f"Node: {most_similar_node['name']}")
-            print(f"Distance: {analyzer.euclidean_distance(most_similar_node['data'], sensor_data['data']):.2f}\n")
-        else:
-            print(f"No similar node found for sensor '{sensor_id}'.\n")
+            # Check if all files exist
+            all_files_exist = True
+            file_paths = [os.path.join(self.directory, f"{self.base_filename}number{i}.json") for i in range(1, self.count + 1)]
+            
+            for file_path in file_paths:
+                if not os.path.exists(file_path):
+                    all_files_exist = False
+
+            if not all_files_exist:
+                return
+
+            # If the combined file already exists, read its content
+            if os.path.exists(combine_file_path):
+                with open(combine_file_path, 'r') as f:
+                    combined_data = json.load(f)
+                print(f"Existing combined data loaded from {combine_file_path}")
+            
+            # Read and combine data from existing files
+            for file_path in file_paths:
+                with open(file_path, 'r') as f:
+                    data = json.load(f)
+                    combined_data.update(data)  # Merge data into combined_data
+
+            # Write the combined data to the combined file
+            try:
+                with open(combine_file_path, 'w') as new_file:
+                    json.dump(combined_data, new_file, indent=4)
+                print(f"Combined data saved to {combine_file_path}")
+
+                # After successfully saving the combined data, delete the original files
+                for file_path in file_paths:
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
+                        print(f"Deleted {file_path}")
+
+            except IOError as e:
+                print(f"An error occurred while saving the combined file: {e}")

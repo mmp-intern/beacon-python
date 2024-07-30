@@ -34,12 +34,40 @@ class SensorDataAnalyzer:
 
         return closest_node, closest_location
 
+    # def transform_data(self, data: List[Dict[str, Any]]) -> Dict[str, Dict[str, float]]:
+    #     transformed = {}
+        
+    #     for device in data:
+    #         for device_id, sensors in device.items():
+    #             for sensor_id, stats in sensors.items():
+    #                 if sensor_id not in transformed:
+    #                     transformed[sensor_id] = {"data": {}}
+                    
+    #                 transformed[sensor_id]["data"][device_id] = {"average": stats.get("average", -85.0)}
+
+    #     # Ensure all device IDs are present for each sensor ID
+    #     for sensor_id, sensor_data in transformed.items():
+    #         for device_id in self.all_device_ids:
+    #             if device_id not in sensor_data["data"]:
+    #                 sensor_data["data"][device_id] = {"average": -85.0}
+        
+    #     return transformed
+    
     def transform_data(self, data: List[Dict[str, Any]]) -> Dict[str, Dict[str, float]]:
         transformed = {}
         
         for device in data:
+            if not isinstance(device, dict):
+                raise ValueError("Each item in the data list should be a dictionary.")
+            
             for device_id, sensors in device.items():
+                if not isinstance(sensors, dict):
+                    raise ValueError(f"Expected sensors to be a dictionary for device_id: {device_id}")
+                
                 for sensor_id, stats in sensors.items():
+                    if not isinstance(stats, dict):
+                        raise ValueError(f"Expected stats to be a dictionary for sensor_id: {sensor_id}")
+                    
                     if sensor_id not in transformed:
                         transformed[sensor_id] = {"data": {}}
                     
@@ -92,7 +120,7 @@ if __name__ == "__main__":
     final_tree = dictify(tree)
     
     # Load measurement data
-    with open('measurement_data/240729_115100number_fixed.json', 'r') as f:
+    with open('D:/project_mmp/measurement_data/240730_153900combined.json', 'r') as f:
         measurement_data = json.load(f)
     
     # Transform the measurement data

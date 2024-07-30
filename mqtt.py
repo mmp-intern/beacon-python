@@ -1,4 +1,5 @@
 import paho.mqtt.client as mqtt
+import schedule
 import subprocess
 import psutil
 import datetime
@@ -40,7 +41,7 @@ class mqtt_sub:
         self.mac_data_number3 = {}
         self.mac_data_number4 = {}
         self.mac_data_number5 = {}
-        self.last_save_second = None
+        self.last_save_time = 0
         self.file_path = r'D:\\project_mmp\\measurement_data'
 
     def number1_sub_connect(self, client, userdata, flags, rc):
@@ -95,10 +96,8 @@ class mqtt_sub:
                                 "RSSI": item["RSSI"]
                             })
                         except AttributeError as e:
-                            print(f"AttributeError occurred: {e}")
                             # Check and correct data structure if necessary
                             if isinstance(self.mac_data_number1[gateway_mac][beacon_mac], dict):
-                                print(f"Resetting entry for {gateway_mac}-{beacon_mac} to an empty list.")
                                 self.mac_data_number1[gateway_mac][beacon_mac] = []
                                 # Retry appending the data
                                 self.mac_data_number1[gateway_mac][beacon_mac].append({
@@ -107,11 +106,11 @@ class mqtt_sub:
                                 })
                             else:
                                 print(f"Unexpected error with data at {gateway_mac}-{beacon_mac}. Skipping entry.")
-        
+                                
         # second == 00 JSON file saved
         if current_time.second == 00 and (self.last_save_second is None or self.last_save_second != 0):
             timestamp_str = current_time.strftime("%y%m%d_%H%M%S")
-            file_name = f"{timestamp_str}number.json"
+            file_name = f"{timestamp_str}_40d63cd6fd92.json"
             kf = kalman_filter()
             self.mac_data_number1 = kf.apply_kalman_filter_to_data(self.mac_data_number1)
             
@@ -142,7 +141,7 @@ class mqtt_sub:
                             print(f"Error: GatewayMAC not set for beacon data {item}")
                             continue
 
-                        if gateway_mac not in self.mac_data_number1:
+                        if gateway_mac not in self.mac_data_number2:
                             self.mac_data_number2[gateway_mac] = {}
                         if beacon_mac not in self.mac_data_number2[gateway_mac]:
                             self.mac_data_number2[gateway_mac][beacon_mac] = []
@@ -153,10 +152,8 @@ class mqtt_sub:
                                 "RSSI": item["RSSI"]
                             })
                         except AttributeError as e:
-                            print(f"AttributeError occurred: {e}")
                             # Check and correct data structure if necessary
                             if isinstance(self.mac_data_number2[gateway_mac][beacon_mac], dict):
-                                print(f"Resetting entry for {gateway_mac}-{beacon_mac} to an empty list.")
                                 self.mac_data_number2[gateway_mac][beacon_mac] = []
                                 # Retry appending the data
                                 self.mac_data_number2[gateway_mac][beacon_mac].append({
@@ -165,11 +162,11 @@ class mqtt_sub:
                                 })
                             else:
                                 print(f"Unexpected error with data at {gateway_mac}-{beacon_mac}. Skipping entry.")
-        
-        # second == 00 JSON file saved
+                                
+         # second == 00 JSON file saved
         if current_time.second == 00 and (self.last_save_second is None or self.last_save_second != 0):
             timestamp_str = current_time.strftime("%y%m%d_%H%M%S")
-            file_name = f"{timestamp_str}number.json"
+            file_name = f"{timestamp_str}_40d63cd705ba.json"
             kf = kalman_filter()
             self.mac_data_number2 = kf.apply_kalman_filter_to_data(self.mac_data_number2)
             
@@ -212,10 +209,8 @@ class mqtt_sub:
                                 "RSSI": item["RSSI"]
                             })
                         except AttributeError as e:
-                            print(f"AttributeError occurred: {e}")
                             # Check and correct data structure if necessary
                             if isinstance(self.mac_data_number3[gateway_mac][beacon_mac], dict):
-                                print(f"Resetting entry for {gateway_mac}-{beacon_mac} to an empty list.")
                                 self.mac_data_number3[gateway_mac][beacon_mac] = []
                                 # Retry appending the data
                                 self.mac_data_number3[gateway_mac][beacon_mac].append({
@@ -228,7 +223,7 @@ class mqtt_sub:
         # second == 00 JSON file saved
         if current_time.second == 00 and (self.last_save_second is None or self.last_save_second != 0):
             timestamp_str = current_time.strftime("%y%m%d_%H%M%S")
-            file_name = f"{timestamp_str}number.json"
+            file_name = f"{timestamp_str}_40d63cd70406.json"
             kf = kalman_filter()
             self.mac_data_number3 = kf.apply_kalman_filter_to_data(self.mac_data_number3)
             
@@ -270,10 +265,8 @@ class mqtt_sub:
                                 "RSSI": item["RSSI"]
                             })
                         except AttributeError as e:
-                            print(f"AttributeError occurred: {e}")
                             # Check and correct data structure if necessary
                             if isinstance(self.mac_data_number4[gateway_mac][beacon_mac], dict):
-                                print(f"Resetting entry for {gateway_mac}-{beacon_mac} to an empty list.")
                                 self.mac_data_number4[gateway_mac][beacon_mac] = []
                                 # Retry appending the data
                                 self.mac_data_number4[gateway_mac][beacon_mac].append({
@@ -286,7 +279,7 @@ class mqtt_sub:
         # second == 00 JSON file saved
         if current_time.second == 00 and (self.last_save_second is None or self.last_save_second != 0):
             timestamp_str = current_time.strftime("%y%m%d_%H%M%S")
-            file_name = f"{timestamp_str}number.json"
+            file_name = f"{timestamp_str}_40d63cd702e8.json"
             kf = kalman_filter()
             self.mac_data_number4 = kf.apply_kalman_filter_to_data(self.mac_data_number4)
             
@@ -328,10 +321,8 @@ class mqtt_sub:
                                 "RSSI": item["RSSI"]
                             })
                         except AttributeError as e:
-                            print(f"AttributeError occurred: {e}")
                             # Check and correct data structure if necessary
                             if isinstance(self.mac_data_number5[gateway_mac][beacon_mac], dict):
-                                print(f"Resetting entry for {gateway_mac}-{beacon_mac} to an empty list.")
                                 self.mac_data_number5[gateway_mac][beacon_mac] = []
                                 # Retry appending the data
                                 self.mac_data_number5[gateway_mac][beacon_mac].append({
@@ -344,7 +335,7 @@ class mqtt_sub:
        # second == 00 JSON file saved
         if current_time.second == 00 and (self.last_save_second is None or self.last_save_second != 0):
             timestamp_str = current_time.strftime("%y%m%d_%H%M%S")
-            file_name = f"{timestamp_str}number.json"
+            file_name = f"{timestamp_str}_40d63cd70316.json"
             kf = kalman_filter()
             self.mac_data_number5 = kf.apply_kalman_filter_to_data(self.mac_data_number5)
             
@@ -355,23 +346,15 @@ class mqtt_sub:
             self.last_save_second = current_time.second
             
     def save_data_to_json(self, data, file_name):
-        
-        file_path = f'{self.file_path}/{file_name}'
-        
-        if(self.mac_data_number1,self.mac_data_number2, 
-           self.mac_data_number3,self.mac_data_number4,
-           self.mac_data_number5 != {}):
-            if os.path.exists(file_path):
-                # If the file exists, append data to it
-                with open(file_path, 'a') as f:
-                    f.write("\n")  # Write a new line to separate entries
-                    json.dump(data, f, indent=4)                 
-                    data = {}
-            else:
-                # If the file does not exist, create it and write data
-                with open(file_path, 'w') as f:
-                    json.dump(data, f, indent=4)
-                    data = {}
+      
+        file_path = os.path.join(self.file_path, file_name)
+            
+        # Write the combined data back to the file
+        with open(file_path, 'w') as f:
+            json.dump(data, f, indent=4)
+
+        # Optionally reset the data
+        data = {}                  
     
     
 ################## test main code #################
