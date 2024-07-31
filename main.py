@@ -33,9 +33,11 @@ def run_broker():
     finally:
         broker.terminate()
         print("Broker thread is terminated.")
+        
 
 # running mqtt subcriber
 def run_number1_sub(broker_address, broker_port):
+    connected = False
     number1_sub = mqtt_sub()
     number1_client.on_connect = number1_sub.number1_sub_connect
     number1_client.on_message = number1_sub.on_message_to_number1
@@ -48,6 +50,7 @@ def run_number1_sub(broker_address, broker_port):
         print("\nKeyboardInterrupt! Exiting...")
     finally:
         print("sub thread is terminated.")
+    
         
 # waiting for broker is already
 def start_number1_sub_delay():

@@ -8,7 +8,7 @@ def load_data_from_file(filename):
 
 def calculate_differences(data):
     coord_diffs = {}
-    num_keys = ["number1", "number2", "number3", "number4", "number5"]
+    num_keys = ["40D63CD6FD92", "40D63CD705BA", "40D63CD70406", "40D63CD702E8", "40D63CD70316"]
     
     # Group by location
     locations = {}
@@ -57,11 +57,11 @@ def find_closest_point(data, input_averages):
 
     for point, values in data.items():
         point_averages = [
-            values["number1"]["average"],
-            values["number2"]["average"],
-            values["number3"]["average"],
-            values["number4"]["average"],
-            values["number5"]["average"]
+            values["40D63CD6FD92"]["average"],
+            values["40D63CD705BA"]["average"],
+            values["40D63CD70406"]["average"],
+            values["40D63CD702E8"]["average"],
+            values["40D63CD70316"]["average"]
         ]
         distance = calculate_distance(input_averages, point_averages)
         
@@ -69,6 +69,8 @@ def find_closest_point(data, input_averages):
             min_distance = distance
             closest_point = point
 
+    print(closest_point)
+    
     if closest_point:
         location = data[closest_point]["location"]
         x = data[closest_point]["x"]
@@ -111,7 +113,7 @@ def main():
     data = load_data_from_file(filename)
     
     # Example input averages
-    input_averages = [-72.32, -85.00, -73.74, -62.51, -56.21]
+    input_averages = [-82.06, -83.75, -68.86, -59.13, -67.96]
     
     # Predict coordinates
     predicted_x, predicted_y = predict_coordinates(data, input_averages)

@@ -1,7 +1,6 @@
-import paho.mqtt.client as mqtt
 import subprocess
-import psutil
 import datetime
+import psutil
 import time
 import json
 import os
@@ -42,7 +41,7 @@ class mqtt_sub:
         self.mac_data_number5 = {}
         self.last_save_time = 0
         self.file_path = r'D:\\project_mmp\\measurement_data'
-
+    
     def number1_sub_connect(self, client, userdata, flags, rc):
         print("Connected with result code " + str(rc))
         client.subscribe('/gw/scanpub/40d63cd6fd92') 
@@ -344,16 +343,32 @@ class mqtt_sub:
         else:
             self.last_save_second = current_time.second
             
-    def save_data_to_json(self, data, file_name):
-      
+    def save_data_to_json(self, data, file_name, max_retries=3, delay=1):
         file_path = os.path.join(self.file_path, file_name)
-            
-        # Write the combined data back to the file
-        with open(file_path, 'w') as f:
-            json.dump(data, f, indent=4)
+        attempt = 0
+        
+        while attempt < max_retries:
+            try:
+                # Attempt to write data to the file
+                with open(file_path, 'w') as f:
+                    json.dump(data, f, indent=4)
+                print(f"\nData successfully saved to {file_name}\n")
 
-        # Optionally reset the data
-        data = {}                  
+                # Check if the file exists after writing
+                if os.path.exists(file_path):
+                    return True
+                else:
+                    raise IOError(f"File {file_name} does not exist after writing.")
+
+            except IOError as e:
+                print(f"\nError saving data to {file_name}: {e}")
+                attempt += 1
+                print(f"Retrying ({attempt}/{max_retries})...")
+                time.sleep(delay)
+        
+        print(f"Failed to save data to {file_name} after {max_retries} attempts.")
+        
+        return False                
     
     
 ################## test main code #################

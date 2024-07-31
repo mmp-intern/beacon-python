@@ -1,22 +1,29 @@
-import os
 import json
+import os
+
+from searching_most_closed_location import SensorDataAnalyzer
 from datetime import datetime
+
 class handling_json_file:
+    
     def __init__(self):
         self.base_filename = datetime.now().strftime("%y%m%d_%H%M00")
         self.count = 5
         self.directory = 'D:\\project_mmp\\measurement_data'
         self.all_device_ids = {'40d63cd705ba', '40d63cd70316', '40d63cd702e8', '40D63cd6fd92', '40d63cd70406'}
-
+        self.last_file_path = ''
+        
     def combine_json_files(self):
+        checking = False
+        SDA = SensorDataAnalyzer()
+        checking = False
+        
         self.base_filename = datetime.now().strftime("%y%m%d_%H%M00")
-        if datetime.now().second == 10:
+        if datetime.now().second == 5:
             file_paths = [
                 os.path.join(self.directory, f"{self.base_filename}_{device_id}.json")
                 for device_id in self.all_device_ids
             ]
-            
-            print(file_paths)
             
             combine_file_path = os.path.join(self.directory, f"{self.base_filename}combined.json")
             combined_data = {}
@@ -31,7 +38,6 @@ class handling_json_file:
             if os.path.exists(combine_file_path):
                 with open(combine_file_path, 'r') as f:
                     combined_data = json.load(f)
-                print(f"Existing combined data loaded from {combine_file_path}")
             
             # Read and combine data from existing files
             for file_path in file_paths:
@@ -44,6 +50,9 @@ class handling_json_file:
                 with open(combine_file_path, 'w') as new_file:
                     json.dump(combined_data, new_file, indent=4)
                 print(f"Combined data saved to {combine_file_path}")
+                
+                self.last_file_path = combine_file_path
+                checking = True
 
                 # After successfully saving the combined data, delete the original files
                 for file_path in file_paths:
@@ -53,3 +62,8 @@ class handling_json_file:
 
             except IOError as e:
                 print(f"An error occurred while saving the combined file: {e}")
+                
+            if checking == True:
+                SDA.process_data(self.last_file_path)
+                checking = False
+            
