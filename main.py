@@ -5,6 +5,7 @@ import time
 from collections import defaultdict
 from mqtt import mqtt_broker, mqtt_sub 
 from fix_wrong_json import handling_json_file
+from data_web_socket import send_beacon_data
 
 # set MQTT broker
 broker_address = "192.168.0.71" 
@@ -139,7 +140,6 @@ if __name__ == "__main__":
     mqtt_number5_sub_process = multiprocessing.Process(target=start_number5_sub_delay)
     test = handling_json_file()
     
-    
     # Starting processes
     mqtt_broker_process.start()
     mqtt_number1_sub_process.start()
@@ -149,6 +149,8 @@ if __name__ == "__main__":
     mqtt_number5_sub_process.start()
     while(1):
         test.combine_json_files()
+        
+        
     # Waiting for processes to finish
     try:
         mqtt_broker_process.join()

@@ -2,6 +2,7 @@ import json
 import os
 
 from searching_most_closed_location import SensorDataAnalyzer
+from data_web_socket import send_beacon_data
 from datetime import datetime
 
 class handling_json_file:
@@ -15,7 +16,7 @@ class handling_json_file:
         
     def combine_json_files(self):
         checking = False
-        SDA = SensorDataAnalyzer()
+        predict_xy = SensorDataAnalyzer()
         checking = False
         
         self.base_filename = datetime.now().strftime("%y%m%d_%H%M00")
@@ -50,8 +51,7 @@ class handling_json_file:
                 with open(combine_file_path, 'w') as new_file:
                     json.dump(combined_data, new_file, indent=4)
                 print(f"Combined data saved to {combine_file_path}")
-                
-                self.last_file_path = combine_file_path
+
                 checking = True
 
                 # After successfully saving the combined data, delete the original files
@@ -63,7 +63,8 @@ class handling_json_file:
             except IOError as e:
                 print(f"An error occurred while saving the combined file: {e}")
                 
-            if checking == True:
-                SDA.process_data(self.last_file_path)
+            if checking:
+                predict_xy.set_tree()
+                predict_xy.process_data(combine_file_path)
+                send_beacon_data(combine_file_path)
                 checking = False
-            

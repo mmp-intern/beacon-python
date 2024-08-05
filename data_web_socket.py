@@ -3,43 +3,30 @@ import websockets
 import json
 
 
-async def send_beacon_data():
+async def send_beacon_data(file_path):
     uri = "ws://localhost:8080/ws/beacon"
     async with websockets.connect(uri) as websocket:
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+
+        # 변환된 형식의 데이터 생성
         beacon_data = {
-            "gateways": [
-                {
-                    "gatewayMac": "40D63CD6FD92",
-                    "beacons": [
-                        {
-                            "mac": "F4741C781187",
-                            "earlyTimestamp": "2024-07-23T16:00:00.000000+00:00",
-                            "lateTimestamp": "2024-07-23T16:00:00.000000+00:00"
-                        },
-                        {
-                            "mac": "DE42759B6E12",
-                            "earlyTimestamp": "2024-07-23T16:00:00.000000+00:00",
-                            "lateTimestamp": "2024-07-23T16:00:00.000000+00:00"
-                        }
-                    ]
-                },
-                {
-                    "gatewayMac": "50D63CD6FD93",
-                    "beacons": [
-                        {
-                            "mac": "A1741C781187",
-                            "earlyTimestamp": "2024-07-23T16:00:00.000000+00:00",
-                            "lateTimestamp": "2024-07-23T16:00:00.000000+00:00"
-                        },
-                        {
-                            "mac": "BE42759B6E12",
-                            "earlyTimestamp": "2024-07-23T16:00:00.000000+00:00",
-                            "lateTimestamp": "2024-07-23T16:00:00.000000+00:00"
-                        }
-                    ]
-                }
-            ]
+            "gateways": []
         }
+
+        for gatewayMac, beacons in data.items():
+            gateway_entry = {
+                "gatewayMac": gatewayMac,
+                "beacons": []
+            }
+            for mac, info in beacons.items():
+                beacon_entry = {
+                    "mac": mac,
+                    "earlyTimestamp": info["early_timestamp"],
+                    "lateTimestamp": info["late_timestamp"]
+                }
+                gateway_entry["beacons"].append(beacon_entry)
+            beacon_data["gateways"].append(gateway_entry)
 
         await websocket.send(json.dumps(beacon_data))
         print(f"Send: {json.dumps(beacon_data, indent=2)}")
