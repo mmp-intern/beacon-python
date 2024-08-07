@@ -1,0 +1,82 @@
+{
+    "40D63CD6FD92(number1)": {
+        "DE42759B6E12(초록)": {
+            "average": -84.53,
+            "std_dev": 0.94,
+            "max_rssi": -83.61,
+            "min_rssi": -85.47
+        },
+        "F4741C781187(빨강)": {
+            "average": -89.54,
+            "std_dev": 0.64,
+            "max_rssi": -88.9,
+            "min_rssi": -90.17,
+            "x" : 780,
+            "y" : -3770
+        }
+    },
+    "40D63CD705BA(number2)": {
+        "F4741C781187(빨강)": {
+            "average": -83.93,
+            "std_dev": 0.34,
+            "max_rssi": -83.61,
+            "min_rssi": -84.27,
+            "x" : 780,
+            "y" : -3770
+        },
+        "DE42759B6E12(초록)": {
+            "average": -88.31,
+            "std_dev": 0.76,
+            "max_rssi": -87.75,
+            "min_rssi": -89
+        }
+    },
+    "40D63CD70406(number3)": {
+        "F4741C781187(빨강)": {
+            "average": -71.24,
+            "std_dev": 0.75,
+            "max_rssi": -70.49,
+            "min_rssi": -71.97,
+            "x" : 780,
+            "y" : -3770
+        },
+        "DE42759B6E12(초록)": {
+            "average": -69.77,
+            "std_dev": 0.5,
+            "max_rssi": -69.27,
+            "min_rssi": -70.26
+        }
+    },
+    "40D63CD702E8(number4)": {
+        "F4741C781187(빨강)": {
+            "average": -60.53,
+            "std_dev": 1.02,
+            "max_rssi": -59.52,
+            "min_rssi": -61.55,
+            "x" : 780,
+            "y" : -3770
+        },
+        "DE42759B6E12(초록)": {
+            "average": -66.9,
+            "std_dev": 0.94,
+            "max_rssi": -65.96,
+            "min_rssi": -67.83
+        }
+    },
+    "40D63CD70316(number5)": {
+        "F4741C781187(빨강)": {
+            "average": -69.99,
+            "std_dev": 2.4,
+            "max_rssi": -67.61,
+            "min_rssi": -72.38,
+            "x" : 780,
+            "y" : -3770
+        },
+        "DE42759B6E12(초록)": {
+            "average": -62.97,
+            "std_dev": 1.27,
+            "max_rssi": -61.7,
+            "min_rssi": -64.24
+        }
+    }
+}

@@ -38,7 +38,7 @@ class mqtt_sub:
         # Use a single dictionary to hold all MAC data
         self.mac_data = defaultdict(lambda: defaultdict(list))
         self.last_save_second = None
-        self.file_path = r'D:\\project_mmp\\measurement_data'
+        self.file_path = r'D:\\project_mmp\\make_exe\\measurement_data'
         self.broker_address = broker_address
         self.broker_port = broker_port
         self.client = mqtt.Client()

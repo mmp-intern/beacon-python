@@ -1,0 +1,87 @@
+{
+       "red7": {
+              "number1": {
+                     "average": -79.92
+              },
+              "number2": {
+                     "average": -77.54
+              },
+              "number3": {
+                     "average": -59.67
+              },
+              "number4": {
+                     "average": -79.36
+              },
+              "number5": {
+                     "average": -82.36
+              }
+       },
+       "orange7": {
+              "number1": {
+                     "average": -78.24
+              },
+              "number2": {
+                     "average": -75.52
+              },
+              "number3": {
+                     "average": -64.36
+              },
+              "number4": {
+                     "average": -83.32
+              },
+              "number5": {
+                     "average": -80.04
+              }
+       },
+       "yellow7": {
+              "number1": {
+                     "average": -71.23
+              },
+              "number2": {
+                     "average": -71.96
+              },
+              "number3": {
+                     "average": -57.09
+              },
+              "number4": {
+                     "average": -76.57
+              },
+              "number5": {
+                     "average": -72.1
+              }
+       },
+       "green7": {
+              "number1": {
+                     "average": -71.85
+              },
+              "number2": {
+                     "average": -72.21
+              },
+              "number3": {
+                     "average": -63.12
+              },
+              "number4": {
+                     "average": -80.31
+              },
+              "number5": {
+                     "average": -80.79
+              }
+       },
+       "black7": {
+              "number1": {
+                     "average": -78.25
+              },
+              "number2": {
+                     "average": -75.43
+              },
+              "number3": {
+                     "average": -63.11
+              },
+              "number4": {
+                     "average": -80.68
+              },
+              "number5": {
+                     "average": -78.62
+              }
+       }
+}

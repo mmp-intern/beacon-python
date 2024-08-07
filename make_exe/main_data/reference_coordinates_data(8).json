@@ -1,0 +1,172 @@
+{
+    "40D63CD6FD92(number1)": {
+        "F4741C781187(빨강)": {
+            "average": -69.39,
+            "std_dev": 1.4,
+            "max_rssi": -67.99,
+            "min_rssi": -70.78
+        },
+        "DE42759B6E12(초록)": {
+            "average": -60.76,
+            "std_dev": 0.8,
+            "max_rssi": -59.96,
+            "min_rssi": -61.57
+        },
+        "C9E5DE47CD1D(노랑)": {
+            "average": -62.5,
+            "std_dev": 0.78,
+            "max_rssi": -61.73,
+            "min_rssi": -63.28
+        },
+        "E35FDB6FFD4B(검정)": {
+            "average": -71.01,
+            "std_dev": 1.36,
+            "max_rssi": -69.65,
+            "min_rssi": -72.35,
+            "x": 780,
+            "y": 0
+        },
+        "E793948C39AE(주황)": {
+            "average": -66.12,
+            "std_dev": 0.93,
+            "max_rssi": -65.19,
+            "min_rssi": -67.05
+        }
+    },
+    "40D63CD705BA(number2)": {
+        "F4741C781187(빨강)": {
+            "average": -63.31,
+            "std_dev": 1.35,
+            "max_rssi": -61.99,
+            "min_rssi": -64.61
+        },
+        "DE42759B6E12(초록)": {
+            "average": -56.7,
+            "std_dev": 1.34,
+            "max_rssi": -55.35,
+            "min_rssi": -58.02
+        },
+        "C9E5DE47CD1D(노랑)": {
+            "average": -60.37,
+            "std_dev": 2.22,
+            "max_rssi": -58.16,
+            "min_rssi": -62.57
+        },
+        "E35FDB6FFD4B(검정)": {
+            "average": -54.98,
+            "std_dev": 1.12,
+            "max_rssi": -53.87,
+            "min_rssi": -56.09,
+            "x": 780,
+            "y": 0
+        },
+        "E793948C39AE(주황)": {
+            "average": -71.72,
+            "std_dev": 1.06,
+            "max_rssi": -70.66,
+            "min_rssi": -72.78
+        }
+    },
+    "40D63CD70406(number3)": {
+        "F4741C781187(빨강)": {
+            "average": -67.24,
+            "std_dev": 1.0,
+            "max_rssi": -66.26,
+            "min_rssi": -68.23
+        },
+        "DE42759B6E12(초록)": {
+            "average": -78.76,
+            "std_dev": 1.9,
+            "max_rssi": -76.89,
+            "min_rssi": -80.64
+        },
+        "C9E5DE47CD1D(노랑)": {
+            "average": -75.35,
+            "std_dev": 1.97,
+            "max_rssi": -73.4,
+            "min_rssi": -77.3
+        },
+        "E35FDB6FFD4B(검정)": {
+            "average": -75.84,
+            "std_dev": 1.03,
+            "max_rssi": -74.83,
+            "min_rssi": -76.87,
+            "x": 780,
+            "y": 0
+        },
+        "E793948C39AE(주황)": {
+            "average": -76.03,
+            "std_dev": 1.3,
+            "max_rssi": -74.74,
+            "min_rssi": -77.33
+        }
+    },
+    "40D63CD702E8(number4)": {
+        "E793948C39AE(주황)": {
+            "average": -82.58,
+            "std_dev": 1.04,
+            "max_rssi": -81.55,
+            "min_rssi": -83.62
+        },
+        "DE42759B6E12(초록)": {
+            "average": -84.63,
+            "std_dev": 0.72,
+            "max_rssi": -83.92,
+            "min_rssi": -85.35
+        },
+        "C9E5DE47CD1D(노랑)": {
+            "average": -79.34,
+            "std_dev": 0.72,
+            "max_rssi": -78.62,
+            "min_rssi": -80.05
+        },
+        "E35FDB6FFD4B(검정)": {
+            "average": -85.59,
+            "std_dev": 1.6,
+            "max_rssi": -84,
+            "min_rssi": -87.14,
+            "x": 780,
+            "y": 0
+        },
+        "F4741C781187(빨강)": {
+            "average": -83.46,
+            "std_dev": 1.06,
+            "max_rssi": -82.4,
+            "min_rssi": -84.52
+        }
+    },
+    "40D63CD70316(number5)": {
+        "DE42759B6E12(초록)": {
+            "average": -79.76,
+            "std_dev": 1.85,
+            "max_rssi": -77.92,
+            "min_rssi": -81.61
+        },
+        "C9E5DE47CD1D(노랑)": {
+            "average": -76.17,
+            "std_dev": 1.7,
+            "max_rssi": -74.48,
+            "min_rssi": -77.86
+        },
+        "E35FDB6FFD4B(검정)": {
+            "average": -80.73,
+            "std_dev": 1.49,
+            "max_rssi": -79.24,
+            "min_rssi": -82.22,
+            "x": 780,
+            "y": 0
+        },
+        "F4741C781187(빨강)": {
+            "average": -81.64,
+            "std_dev": 1.85,
+            "max_rssi": -79.8,
+            "min_rssi": -83.49
+        },
+        "E793948C39AE(주황)": {
+            "average": -77.21,
+            "std_dev": 1.65,
+            "max_rssi": -75.61,
+            "min_rssi": -78.85
+        }
+    }
+}

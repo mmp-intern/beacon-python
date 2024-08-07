@@ -1,0 +1,882 @@
+{
+    "red1": {
+        "40D63CD6FD92": {
+            "average": -89.54
+        },
+        "40D63CD705BA": {
+            "average": -83.93
+        },
+        "40D63CD70406": {
+            "average": -71.24
+        },
+        "40D63CD702E8": {
+            "average": -60.53
+        },
+        "40D63CD70316": {
+            "average": -69.99
+        },
+        "x": 735,
+        "y": 2070,
+        "location": "representative_room"
+    },
+    "green1": {
+        "40D63CD6FD92": {
+            "average": -84.53
+        },
+        "40D63CD705BA": {
+            "average": -88.31
+        },
+        "40D63CD70406": {
+            "average": -69.77
+        },
+        "40D63CD702E8": {
+            "average": -66.9
+        },
+        "40D63CD70316": {
+            "average": -62.97
+        },
+        "x": 315,
+        "y": 2070,
+        "location": "representative_room"
+    },
+    "red2": {
+        "40D63CD6FD92": {
+            "average": -82.19
+        },
+        "40D63CD705BA": {
+            "average": -84.93
+        },
+        "40D63CD70406": {
+            "average": -71.29
+        },
+        "40D63CD702E8": {
+            "average": -58.84
+        },
+        "40D63CD70316": {
+            "average": -69.65
+        },
+        "x": 735,
+        "y": 1590,
+        "location": "representative_room"
+    },
+    "green2": {
+        "40D63CD6FD92": {
+            "average": -66.98
+        },
+        "40D63CD705BA": {
+            "average": -82.06
+        },
+        "40D63CD70406": {
+            "average": -65.93
+        },
+        "40D63CD702E8": {
+            "average": -63.74
+        },
+        "40D63CD70316": {
+            "average": -67.1
+        },
+        "x": 315,
+        "y": 1590,
+        "location": "representative_room"
+    },
+    "red3": {
+        "40D63CD6FD92": {
+            "average": -79.44
+        },
+        "40D63CD705BA": {
+            "average": -82.2
+        },
+        "40D63CD70406": {
+            "average": -63.68
+        },
+        "40D63CD702E8": {
+            "average": -66.76
+        },
+        "40D63CD70316": {
+            "average": -77.24
+        },
+        "x": 735,
+        "y": 1575,
+        "location": "private_room1"
+    },
+    "green3": {
+        "40D63CD6FD92": {
+            "average": -75.19
+        },
+        "40D63CD705BA": {
+            "average": -87.0
+        },
+        "40D63CD70406": {
+            "average": -71.4
+        },
+        "40D63CD702E8": {
+            "average": -62.72
+        },
+        "40D63CD70316": {
+            "average": -67.01
+        },
+        "x": 535,
+        "y": 1830,
+        "location": "representative_room"
+    },
+    "red4": {
+        "40D63CD6FD92": {
+            "average": -79.35
+        },
+        "40D63CD705BA": {
+            "average": -80.04
+        },
+        "40D63CD70406": {
+            "average": -62.03
+        },
+        "40D63CD702E8": {
+            "average": -72.78
+        },
+        "40D63CD70316": {
+            "average": -75.78
+        },
+        "x": 735,
+        "y": 1335,
+        "location": "private_room1"
+    },
+    "green4": {
+        "40D63CD6FD92": {
+            "average": -78.83
+        },
+        "40D63CD705BA": {
+            "average": -78.03
+        },
+        "40D63CD70406": {
+            "average": -66.84
+        },
+        "40D63CD702E8": {
+            "average": -70.1
+        },
+        "40D63CD70316": {
+            "average": -68.36
+        },
+        "x": 375,
+        "y": 1335,
+        "location": "private_room1"
+    },
+    "red5": {
+        "40D63CD6FD92": {
+            "average": -75.03
+        },
+        "40D63CD705BA": {
+            "average": -83.82
+        },
+        "40D63CD70406": {
+            "average": -61.71
+        },
+        "40D63CD702E8": {
+            "average": -71.04
+        },
+        "40D63CD70316": {
+            "average": -71.9
+        },
+        "x": 555,
+        "y": 1455,
+        "location": "private_room1"
+    },
+    "green5": {
+        "40D63CD6FD92": {
+            "average": -79.05
+        },
+        "40D63CD705BA": {
+            "average": -81.95
+        },
+        "40D63CD70406": {
+            "average": -60.22
+        },
+        "40D63CD702E8": {
+            "average": -64.4
+        },
+        "40D63CD70316": {
+            "average": -70.57
+        },
+        "x": 375,
+        "y": 1575,
+        "location": "private_room1"
+    },
+    "red6": {
+        "40D63CD6FD92": {
+            "average": -80.88
+        },
+        "40D63CD705BA": {
+            "average": -84.14
+        },
+        "40D63CD70406": {
+            "average": -61.34
+        },
+        "40D63CD702E8": {
+            "average": -81.63
+        },
+        "40D63CD70316": {
+            "average": -82.33
+        },
+        "x": 735,
+        "y": 1330,
+        "location": "private_room2"
+    },
+    "orange6": {
+        "40D63CD6FD92": {
+            "average": -82.78
+        },
+        "40D63CD705BA": {
+            "average": -80.62
+        },
+        "40D63CD70406": {
+            "average": -57.29
+        },
+        "40D63CD702E8": {
+            "average": -76.84
+        },
+        "40D63CD70316": {
+            "average": -76.31
+        },
+        "x": 555,
+        "y": 1210,
+        "location": "private_room2"    
+    },
+    "yellow6": {
+        "40D63CD6FD92": {
+            "average": -71.71
+        },
+        "40D63CD705BA": {
+            "average": -78.28
+        },
+        "40D63CD70406": {
+            "average": -64.2
+        },
+        "40D63CD702E8": {
+            "average": -72.29
+        },
+        "40D63CD70316": {
+            "average": -71.27
+        },
+        "x": 375,
+        "y": 1330,
+        "location": "private_room2"
+    },
+    "green6": {
+        "40D63CD6FD92": {
+            "average": -75.58
+        },
+        "40D63CD705BA": {
+            "average": -71.62
+        },
+        "40D63CD70406": {
+            "average": -55.38
+        },
+        "40D63CD702E8": {
+            "average": -76.11
+        },
+        "40D63CD70316": {
+            "average": -72.17
+        },
+        "x": 375,
+        "y": 1090,
+        "location": "private_room2"
+    },
+    "black6": {
+        "40D63CD6FD92": {
+            "average": -84.87
+        },
+        "40D63CD705BA": {
+            "average": -81.57
+        },
+        "40D63CD70406": {
+            "average": -62.8
+        },
+        "40D63CD702E8": {
+            "average": -77.83
+        },
+        "40D63CD70316": {
+            "average": -77.48
+        },
+        "x": 735,
+        "y": 1090,
+        "location": "private_room2"
+    },
+    "red7": {
+        "40D63CD6FD92": {
+            "average": -79.92
+        },
+        "40D63CD705BA": {
+            "average": -77.54
+        },
+        "40D63CD70406": {
+            "average": -59.67
+        },
+        "40D63CD702E8": {
+            "average": -79.36
+        },
+        "40D63CD70316": {
+            "average": -82.36
+        },
+        "x": 675,
+        "y": 1085,
+        "location": "private_room3"
+    },
+    "orange7": {
+        "40D63CD6FD92": {
+            "average": -78.24
+        },
+        "40D63CD705BA": {
+            "average": -75.52
+        },
+        "40D63CD70406": {
+            "average": -64.36
+        },
+        "40D63CD702E8": {
+            "average": -83.32
+        },
+        "40D63CD70316": {
+            "average": -80.04
+        },
+        "x": 525,
+        "y": 965,
+        "location": "private_room3"
+    },
+    "yellow7": {
+        "40D63CD6FD92": {
+            "average": -71.23
+        },
+        "40D63CD705BA": {
+            "average": -71.96
+        },
+        "40D63CD70406": {
+            "average": -57.09
+        },
+        "40D63CD702E8": {
+            "average": -76.57
+        },
+        "40D63CD70316": {
+            "average": -72.1
+        },
+        "x": 375,
+        "y": 1085,
+        "location": "private_room3"
+    },
+    "green7": {
+        "40D63CD6FD92": {
+            "average": -71.85
+        },
+        "40D63CD705BA": {
+            "average": -72.21
+        },
+        "40D63CD70406": {
+            "average": -63.12
+        },
+        "40D63CD702E8": {
+            "average": -80.31
+        },
+        "40D63CD70316": {
+            "average": -80.79
+        },
+        "x": 375,
+        "y": 845,
+        "location": "private_room3"
+    },
+    "black7": {
+        "40D63CD6FD92": {
+            "average": -78.25
+        },
+        "40D63CD705BA": {
+            "average": -75.43
+        },
+        "40D63CD70406": {
+            "average": -63.11
+        },
+        "40D63CD702E8": {
+            "average": -80.68
+        },
+        "40D63CD70316": {
+            "average": -78.62
+        },
+        "x": 675,
+        "y": 845,
+        "location": "private_room3"
+    },
+    "red8": {
+        "40D63CD6FD92": {
+            "average": -69.39
+        },
+        "40D63CD705BA": {
+            "average": -63.31
+        },
+        "40D63CD70406": {
+            "average": -67.24
+        },
+        "40D63CD702E8": {
+            "average": -83.46
+        },
+        "40D63CD70316": {
+            "average": -81.64
+        },
+        "x": 735,
+        "y": 840,
+        "location": "main"
+    },
+    "orange8": {
+        "40D63CD6FD92": {
+            "average": -66.12
+        },
+        "40D63CD705BA": {
+            "average": -71.72
+        },
+        "40D63CD70406": {
+            "average": -76.03
+        },
+        "40D63CD702E8": {
+            "average": -82.58
+        },
+        "40D63CD70316": {
+            "average": -77.21
+        },
+        "x": 370,
+        "y": 840,
+        "location": "main"
+    },
+    "yellow8": {
+        "40D63CD6FD92": {
+            "average": -62.5
+        },
+        "40D63CD705BA": {
+            "average": -60.37
+        },
+        "40D63CD70406": {
+            "average": -75.35
+        },
+        "40D63CD702E8": {
+            "average": -79.34
+        },
+        "40D63CD70316": {
+            "average": -76.17
+        },
+        "x": 370,
+        "y": 375,
+        "location": "main"
+    },
+    "green8": {
+        "40D63CD6FD92": {
+            "average": -60.76
+        },
+        "40D63CD705BA": {
+            "average": -56.7
+        },
+        "40D63CD70406": {
+            "average": -78.76
+        },
+        "40D63CD702E8": {
+            "average": -84.63
+        },
+        "40D63CD70316": {
+            "average": -79.76
+        },
+        "x": 255,
+        "y": 120,
+        "location": "main"
+    },
+    "black8": {
+        "40D63CD6FD92": {
+            "average": -71.01
+        },
+        "40D63CD705BA": {
+            "average": -54.98
+        },
+        "40D63CD70406": {
+            "average": -75.84
+        },
+        "40D63CD702E8": {
+            "average": -85.59
+        },
+        "40D63CD70316": {
+            "average": -80.73
+        },
+        "x": 735,
+        "y": 120,
+        "location": "main"
+    },
+    "red9": {
+        "40D63CD6FD92": {
+            "average": -55.8
+        },
+        "40D63CD705BA": {
+            "average": -72.52
+        },
+        "40D63CD70406": {
+            "average": -82.99
+        },
+        "40D63CD702E8": {
+            "average": -82.56
+        },
+        "40D63CD70316": {
+            "average": -84.51
+        },
+        "x": 0,
+        "y": 0,
+        "location": "tea_room"
+    },
+    "orange9": {
+        "40D63CD6FD92": {
+            "average": -50.43
+        },
+        "40D63CD705BA": {
+            "average": -66.59
+        },
+        "40D63CD70406": {
+            "average": -80.26
+        },
+        "40D63CD702E8": {
+            "average": -85.26
+        },
+        "40D63CD70316": {
+            "average": -81.52
+        },
+        "x": 120,
+        "y": 180,
+        "location": "tea_room"
+    },
+    "yellow9": {
+        "40D63CD6FD92": {
+            "average": -54.23
+        },
+        "40D63CD705BA": {
+            "average": -71.14
+        },
+        "40D63CD70406": {
+            "average": -81.39
+        },
+        "40D63CD702E8": {
+            "average": -85.05
+        },
+        "40D63CD70316": {
+            "average": -84.51
+        },
+        "x": 0,
+        "y": 360,
+        "location": "tea_room"
+    },
+    "green9": {
+        "40D63CD6FD92": {
+            "average": -59.41
+        },
+        "40D63CD705BA": {
+            "average": -66.48
+        },
+        "40D63CD70406": {
+            "average": -83.2
+        },
+        "40D63CD702E8": {
+            "average": -90.2
+        },
+        "40D63CD70316": {
+            "average": -83.41
+        },
+        "x": 240,
+        "y": 360,
+        "location": "tea_room"
+    },
+    "black9": {
+        "40D63CD6FD92": {
+            "average": -56.46
+        },
+        "40D63CD705BA": {
+            "average": -60.8
+        },
+        "40D63CD70406": {
+            "average": -73.66
+        },
+        "40D63CD702E8": {
+            "average": -79.79
+        },
+        "40D63CD70316": {
+            "average": -73.08
+        },
+        "x": 255,
+        "y": 375,
+        "location": "main"
+    },
+    "rea10": {
+        "40D63CD6FD92": {
+            "average": -69.47
+        },
+        "40D63CD705BA": {
+            "average": -72.78
+        },
+        "40D63CD70406": {
+            "average": -69.38
+        },
+        "40D63CD702E8": {
+            "average": -74.95
+        },
+        "40D63CD70316": {
+            "average": -71.29
+        },
+        "x": 185,
+        "y": 975,
+        "location": "main"
+    },
+    "orange10": {
+        "40D63CD6FD92": {
+            "average": -63.82
+        },
+        "40D63CD705BA": {
+            "average": -74.01
+        },
+        "40D63CD70406": {
+            "average": -88.89
+        },
+        "40D63CD702E8": {
+            "average": -89.53
+        },
+        "40D63CD70316": {
+            "average": -83.41
+        },
+        "x": 240,
+        "y": 0,
+        "location": "tea_room"
+    },
+    "yellow10": {
+        "40D63CD6FD92": {
+            "average": -73.01
+        },
+        "40D63CD705BA": {
+            "average": -74.11
+        },
+        "40D63CD70406": {
+            "average": -66.57
+        },
+        "40D63CD702E8": {
+            "average": -75.64
+        },
+        "40D63CD70316": {
+            "average": -67.0
+        },
+        "x": 0,
+        "y": 1575,
+        "location": "main"
+    },
+    "green10": {
+        "40D63CD6FD92": {
+            "average": -53.3
+        },
+        "40D63CD705BA": {
+            "average": -76.1
+        },
+        "40D63CD70406": {
+            "average": -84.98
+        },
+        "40D63CD702E8": {
+            "average": -86.72
+        },
+        "40D63CD70316": {
+            "average": -84.67
+        },
+        "x": 0,
+        "y": 375,
+        "location": "main"
+    },
+    "black10": {
+        "40D63CD6FD92": {
+            "average": -68.68
+        },
+        "40D63CD705BA": {
+            "average": -64.87
+        },
+        "40D63CD70406": {
+            "average": -70.8
+        },
+        "40D63CD702E8": {
+            "average": -72.14
+        },
+        "40D63CD70316": {
+            "average": -74.9
+        },
+        "x": 0,
+        "y": 975,
+        "location": "main"
+    },
+    "red11": {
+        "40D63CD6FD92": {
+            "average": -74.04
+        },
+        "40D63CD705BA": {
+            "average": -78.36
+        },
+        "40D63CD70406": {
+            "average": -68.55
+        },
+        "40D63CD702E8": {
+            "average": -66.47
+        },
+        "40D63CD70316": {
+            "average": -63.28
+        },
+        "x": 370,
+        "y": 1575,
+        "location": "main"
+    },
+    "yellow11": {
+        "40D63CD6FD92": {
+            "average": -74.0
+        },
+        "40D63CD705BA": {
+            "average": -74.47
+        },
+        "40D63CD70406": {
+            "average": -65.61
+        },
+        "40D63CD702E8": {
+            "average": -71.38
+        },
+        "40D63CD70316": {
+            "average": -62.83
+        },
+        "x": 92.5,
+        "y": 1275,
+        "location": "main"
+    },
+    "green11": {
+        "40D63CD6FD92": {
+            "average": -78.29
+        },
+        "40D63CD705BA": {
+            "average": -69.52
+        },
+        "40D63CD70406": {
+            "average": -71.05
+        },
+        "40D63CD702E8": {
+            "average": -73.52
+        },
+        "40D63CD70316": {
+            "average": -77.72
+        },
+        "x": 92.5,
+        "y": 675,
+        "location": "main"
+    },
+    "black11": {
+        "40D63CD6FD92": {
+            "average": -70.43
+        },
+        "40D63CD705BA": {
+            "average": -77.59
+        },
+        "40D63CD70406": {
+            "average": -66.86
+        },
+        "40D63CD702E8": {
+            "average": -67.68
+        },
+        "40D63CD70316": {
+            "average": -67.26
+        },
+        "x": 277.5,
+        "y": 1275,
+        "location": "main"
+    },
+    "red12": {
+        "40D63CD6FD92": {
+            "average": -78.03
+        },
+        "40D63CD705BA": {
+            "average": -83.63
+        },
+        "40D63CD70406": {
+            "average": -69.57
+        },
+        "40D63CD702E8": {
+            "average": -66.65
+        },
+        "40D63CD70316": {
+            "average": -59.07
+        },
+        "x": 320,
+        "y": 1590,
+        "location": "meeting_room"
+    },
+    "orange12": {
+        "40D63CD6FD92": {
+            "average": -80.45
+        },
+        "40D63CD705BA": {
+            "average": -88.73
+        },
+        "40D63CD70406": {
+            "average": -80.05
+        },
+        "40D63CD702E8": {
+            "average": -67.69
+        },
+        "40D63CD70316": {
+            "average": -61.84
+        },
+        "x": 300,
+        "y": 2070,
+        "location": "meeting_room"
+    },
+    "yellow12": {
+        "40D63CD6FD92": {
+            "average": -78.61
+        },
+        "40D63CD705BA": {
+            "average": -80.96
+        },
+        "40D63CD70406": {
+            "average": -64.71
+        },
+        "40D63CD702E8": {
+            "average": -69.6
+        },
+        "40D63CD70316": {
+            "average": -55.52
+        },
+        "x": 0,
+        "y": 1590,
+        "location": "meeting_room"
+    },
+    "green12": {
+        "40D63CD6FD92": {
+            "average": -85.76
+        },
+        "40D63CD705BA": {
+            "average": -86.84
+        },
+        "40D63CD70406": {
+            "average": -80.17
+        },
+        "40D63CD702E8": {
+            "average": -75.8
+        },
+        "40D63CD70316": {
+            "average": -52.06
+        },
+        "x": 0,
+        "y": 2070,
+        "location": "meeting_room"
+    },
+    "black12": {
+        "40D63CD6FD92": {
+            "average": -77.51
+        },
+        "40D63CD705BA": {
+            "average": -80.32
+        },
+        "40D63CD70406": {
+            "average": -73.48
+        },
+        "40D63CD702E8": {
+            "average": -64.67
+        },
+        "40D63CD70316": {
+            "average": -55.36
+        },
+        "x": 150,
+        "y": 1830,
+        "location": "meeting_room"
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "red2": {
+        "number1": {
+            "average": -82.19
+        },
+        "number2": {
+            "average": -84.93
+        },
+        "number3": {
+            "average": -71.29
+        },
+        "number4": {
+            "average": -58.84
+        },
+        "number5": {
+            "average": -69.65
+        }
+    },
+    "green2": {
+        "number1": {
+            "average": -66.98
+        },
+        "number2": {
+            "average": -82.06
+        },
+        "number3": {
+            "average": -65.93
+        },
+        "number4": {
+            "average": -63.74
+        },
+        "number5": {
+            "average": -67.1
+        }
+    }
+}
